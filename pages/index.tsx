@@ -1,6 +1,7 @@
-import { ReactNode } from "react"
-import { Footer } from "../components/Footer"
 import { Header } from "../components/Header"
+import { Main } from "../components/Main"
+import { Product } from "../components/Product"
+import { Footer } from "../components/Footer"
 
 const DATA = {
   name: "Consectetur adipiscing",
@@ -8,49 +9,6 @@ const DATA = {
   imgUrl: "https://picsum.photos/500",
   imgAlt: "",
   rating: 4.9,
-}
-
-
-interface RatingProps {
-  rating: number
-}
-
-const Rating = ({ rating }: RatingProps) => {
-  return <div className="font-bold py-4 text-red-400">{rating}</div>
-}
-
-interface ProductProps {
-  desc: string,
-  name: string,
-  imgUrl: string,
-  imgAlt: string,
-  rating: number,
-}
-
-const Product = ({ desc, name, imgUrl, imgAlt, rating }: ProductProps) => {
-  return (
-    <>
-      <img className="object-cover w-full h-full" src={imgUrl} alt={imgAlt} />
-      <div className="p-4">
-        <h1>{name}</h1>
-        <Rating rating={rating}/>
-        <p>{desc}</p>
-      </div>
-    </>
-  )
-}
-
-
-interface MainProps {
-  children: ReactNode
-}
-
-const Main = ({ children }: MainProps) => {
-  return (
-    <main className="bg-yellow-200 flex-grow grid md:grid-cols-2 items-center">
-      {children}
-    </main>
-  )
 }
 
 const Home = () => {
