@@ -18,18 +18,35 @@ const Rating = ({ rating }: RatingProps) => {
   return <div className="font-bold py-4 text-red-400">{rating}</div>
 }
 
+interface ProductProps {
+  data: {
+    desc: string,
+    name: string,
+    imgUrl: string,
+    imgAlt: string,
+    rating: number,
+  }
+}
+
+const Product = (props: ProductProps) => {
+  return (
+    <>
+      <img className="object-cover w-full h-full" src={props.data.imgUrl} alt={props.data.imgAlt} />
+      <div className="p-4">
+        <h1>{props.data.name}</h1>
+        <Rating rating={props.data.rating}/>
+        <p>{props.data.desc}</p>
+      </div>
+    </>
+  )
+}
 
 const Home = () => {
   return (
     <div className="container md:px-4 flex flex-col bg-green-300 min-h-screen">
       <Header></Header>
       <main className="bg-yellow-200 flex-grow grid md:grid-cols-2 items-center">
-        <img className="object-cover w-full h-full" src={DATA.imgUrl} alt={DATA.imgAlt} />
-        <div className="p-4">
-          <h1>{DATA.name}</h1>
-          <Rating rating={DATA.rating}/>
-          <p>{DATA.desc}</p>
-        </div>
+        <Product data={DATA} />
       </main>
       <Footer></Footer>
     </div>
