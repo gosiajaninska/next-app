@@ -14,8 +14,8 @@ interface RatingProps {
   rating: number
 }
 
-const Rating = (props: RatingProps) => {
-  return <div className="font-bold py-4 text-red-400">{props.rating}</div>
+const Rating = ({ rating }: RatingProps) => {
+  return <div className="font-bold py-4 text-red-400">{rating}</div>
 }
 
 
