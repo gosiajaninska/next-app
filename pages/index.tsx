@@ -19,16 +19,14 @@ const Rating = ({ rating }: RatingProps) => {
 }
 
 interface ProductProps {
-  data: {
-    desc: string,
-    name: string,
-    imgUrl: string,
-    imgAlt: string,
-    rating: number,
-  }
+  desc: string,
+  name: string,
+  imgUrl: string,
+  imgAlt: string,
+  rating: number,
 }
 
-const Product = ({ data: { desc, name, imgUrl, imgAlt, rating } }: ProductProps) => {
+const Product = ({ desc, name, imgUrl, imgAlt, rating }: ProductProps) => {
   return (
     <>
       <img className="object-cover w-full h-full" src={imgUrl} alt={imgAlt} />
@@ -46,7 +44,7 @@ const Home = () => {
     <div className="container md:px-4 flex flex-col bg-green-300 min-h-screen">
       <Header></Header>
       <main className="bg-yellow-200 flex-grow grid md:grid-cols-2 items-center">
-        <Product data={DATA} />
+        <Product desc={DATA.desc} name={DATA.name} imgUrl={DATA.imgUrl} imgAlt={DATA.imgAlt} rating={DATA.rating} />
       </main>
       <Footer></Footer>
     </div>
