@@ -1,3 +1,4 @@
+import { ReactNode } from "react"
 import { Footer } from "../components/Footer"
 import { Header } from "../components/Header"
 
@@ -39,13 +40,26 @@ const Product = ({ desc, name, imgUrl, imgAlt, rating }: ProductProps) => {
   )
 }
 
+
+interface MainProps {
+  children: ReactNode
+}
+
+const Main = ({ children }: MainProps) => {
+  return (
+    <main className="bg-yellow-200 flex-grow grid md:grid-cols-2 items-center">
+      {children}
+    </main>
+  )
+}
+
 const Home = () => {
   return (
     <div className="container md:px-4 flex flex-col bg-green-300 min-h-screen">
       <Header></Header>
-      <main className="bg-yellow-200 flex-grow grid md:grid-cols-2 items-center">
+      <Main>
         <Product desc={DATA.desc} name={DATA.name} imgUrl={DATA.imgUrl} imgAlt={DATA.imgAlt} rating={DATA.rating} />
-      </main>
+      </Main>
       <Footer></Footer>
     </div>
   )
