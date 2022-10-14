@@ -28,14 +28,14 @@ interface ProductProps {
   }
 }
 
-const Product = (props: ProductProps) => {
+const Product = ({ data: { desc, name, imgUrl, imgAlt, rating } }: ProductProps) => {
   return (
     <>
-      <img className="object-cover w-full h-full" src={props.data.imgUrl} alt={props.data.imgAlt} />
+      <img className="object-cover w-full h-full" src={imgUrl} alt={imgAlt} />
       <div className="p-4">
-        <h1>{props.data.name}</h1>
-        <Rating rating={props.data.rating}/>
-        <p>{props.data.desc}</p>
+        <h1>{name}</h1>
+        <Rating rating={rating}/>
+        <p>{desc}</p>
       </div>
     </>
   )
