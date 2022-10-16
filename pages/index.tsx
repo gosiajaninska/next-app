@@ -1,7 +1,5 @@
-import { Header } from "../components/Header"
 import { Main } from "../components/Main"
 import { Product } from "../components/Product"
-import { Footer } from "../components/Footer"
 
 const DATA = {
   name: "Consectetur adipiscing",
@@ -13,13 +11,9 @@ const DATA = {
 
 const Home = () => {
   return (
-    <>
-      <Header></Header>
-      <Main>
-        <Product desc={DATA.desc} name={DATA.name} imgUrl={DATA.imgUrl} imgAlt={DATA.imgAlt} rating={DATA.rating} />
-      </Main>
-      <Footer></Footer>
-    </>
+    <Main>
+      <Product desc={DATA.desc} name={DATA.name} imgUrl={DATA.imgUrl} imgAlt={DATA.imgAlt} rating={DATA.rating} />
+    </Main>
   )
 }
 
