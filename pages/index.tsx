@@ -13,13 +13,13 @@ const DATA = {
 
 const Home = () => {
   return (
-    <div className="container md:px-4 flex flex-col bg-green-300 min-h-screen">
+    <>
       <Header></Header>
       <Main>
         <Product desc={DATA.desc} name={DATA.name} imgUrl={DATA.imgUrl} imgAlt={DATA.imgAlt} rating={DATA.rating} />
       </Main>
       <Footer></Footer>
-    </div>
+    </>
   )
 }
 

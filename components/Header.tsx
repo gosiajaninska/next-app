@@ -5,7 +5,7 @@ export const Header = () => {
   const router = useRouter()
 
   return (
-    <header aria-label="Site Header" className="border-b border-gray-100">
+    <header aria-label="Site Header" className="border-b border-gray-500">
       <div
         className="mx-auto flex max-w-screen-2xl items-center justify-between"
       >
@@ -48,10 +48,10 @@ export const Header = () => {
         </div>
 
         <div className="flex flex-1 items-center justify-end">
-          <nav className="h-20 hidden lg:flex lg:gap-4 lg:text-xs lg:font-bold lg:uppercase lg:tracking-wide lg:text-gray-500" aria-label="Site Nav">
+          <nav className="hidden absolute top-20 right-0 left-0 flex-col p-4 bg-slate-200 lg:flex gap-4 lg:static lg:flex-row lg:bg-transparent lg:h-20 lg:p-0 text-xs font-bold uppercase lg:tracking-wide text-gray-500" aria-label="Site Nav">
             <Link href="/products">
               <a
-                className={`flex items-center border-b-4 ${router.pathname.startsWith('/products') ? 'border-current' : 'border-transparent'} hover:border-current hover:text-red-700`}
+                className={`flex items-center border-b-4 ${router.pathname.startsWith('/products') ? 'border-current' : 'border-transparent'} leading-8 hover:border-current hover:text-red-700`}
               >
                 Products
               </a>
@@ -59,7 +59,7 @@ export const Header = () => {
 
             <Link href="/sale">
               <a
-                className={`flex items-center border-b-4 ${router.pathname.startsWith('/sale') ? 'border-current' : 'border-transparent'} hover:border-current hover:text-red-700`}
+                className={`flex items-center border-b-4 ${router.pathname.startsWith('/sale') ? 'border-current' : 'border-transparent'} leading-8 hover:border-current hover:text-red-700`}
               >
                 Sale
               </a>
@@ -67,7 +67,7 @@ export const Header = () => {
 
             <Link href="/about">
               <a
-                className={`flex items-center border-b-4 ${router.pathname.startsWith('/about') ? 'border-current' : 'border-transparent'} hover:border-current hover:text-red-700`}
+                className={`flex items-center border-b-4 ${router.pathname.startsWith('/about') ? 'border-current' : 'border-transparent'} leading-8 hover:border-current hover:text-red-700`}
               >
                 About
               </a>
@@ -75,7 +75,7 @@ export const Header = () => {
 
             <Link href="/contact">
               <a
-                className={`flex items-center border-b-4 border-${router.pathname.startsWith('/contact') ? 'current' : 'transparent'} hover:border-current hover:text-red-700`}
+                className={`flex items-center border-b-4 border-${router.pathname.startsWith('/contact') ? 'current' : 'transparent'} leading-8 hover:border-current hover:text-red-700`}
               >
                 Contact
               </a>
