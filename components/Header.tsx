@@ -5,7 +5,7 @@ export const Header = () => {
   const router = useRouter()
 
   return (
-    <header aria-label="Site Header" className="border-b border-gray-500 px-4">
+    <header aria-label="Site Header" className="border-b border-gray-500 px-4 z-10">
       <div
         className="mx-auto flex max-w-screen-2xl items-center justify-between"
       >

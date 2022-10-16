@@ -1,13 +1,16 @@
 import { ReactNode } from "react"
 
 interface MainProps {
-  children: ReactNode
+  children: ReactNode,
+  cssClass?: string,
 }
 
-export const Main = ({ children }: MainProps) => {
+export const Main = ({ children, cssClass }: MainProps) => {
   return (
-    <main className="bg-yellow-200 flex-grow grid md:grid-cols-2 items-center">
-      {children}
+    <main className="flex-grow flex min-h-screen -mt-20 pt-20 relative z-0">
+      <div className={`flex-grow ${cssClass != undefined ? cssClass : ""}`}>
+        {children}
+      </div>
     </main>
   )
 }

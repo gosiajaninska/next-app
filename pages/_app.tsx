@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className="container md:px-4 flex flex-col min-h-screen relative">
+    <div className="container flex flex-col min-h-screen relative">
       <Component {...pageProps} />
     </div>
     )

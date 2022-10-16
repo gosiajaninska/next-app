@@ -6,7 +6,7 @@ const About = () => {
   return (
     <>
       <Header></Header>
-      <Main><h1>About</h1></Main>
+      <Main cssClass="p-8"><h1>About</h1></Main>
       <Footer></Footer>
     </>
   )
