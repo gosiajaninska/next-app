@@ -19,7 +19,7 @@ const Home = () => {
 
         <div className="mt-8 flex flex-wrap justify-center gap-4">
           <Link href="/products">
-            <a className="block w-full rounded bg-slate-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-slate-700 focus:outline-none focus:ring active:bg-slate-500 sm:w-auto">
+            <a className="block w-full rounded bg-black px-12 py-3 text-sm font-medium text-white shadow hover:bg-slate-700 focus:outline-none focus:ring active:bg-slate-500 sm:w-auto">
               Get Started
             </a>
           </Link>

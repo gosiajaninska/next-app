@@ -1,22 +1,30 @@
-import { Rating } from "./Rating"
+import Link from "next/link"
+import Image from 'next/image'
 
 interface ProductProps {
-  desc: string,
+  id: number,
   name: string,
   imgUrl: string,
   imgAlt: string,
-  rating: number,
+  price: number,
 }
 
-export const Product = ({ desc, name, imgUrl, imgAlt, rating }: ProductProps) => {
+export const Product = ({ name, imgUrl, imgAlt, price, id }: ProductProps) => {
   return (
-    <div className="grid grid-cols-2">
-      <img className="object-cover w-full h-full" src={imgUrl} alt={imgAlt} />
-      <div className="p-4">
-        <h1>{name}</h1>
-        <Rating rating={rating}/>
-        <p>{desc}</p>
-      </div>
-    </div>
+    <Link href={`products/${id}`}>
+      <a className="block">
+        <Image
+          src={imgUrl}
+          alt={imgAlt}
+          width={650}
+          height={650}
+          className="aspect-square w-full object-cover"
+        />
+        <div className="mt-2">
+          <h3 className="font-medium">{name}</h3>
+          <p className="mt-1 text-sm text-slate-700">${price}</p>
+        </div>
+      </a>
+    </Link>
   )
 }
