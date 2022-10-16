@@ -1,18 +1,36 @@
+import Link from "next/link"
 import { Main } from "../components/Main"
-import { Product } from "../components/Product"
-
-const DATA = {
-  name: "Consectetur adipiscing",
-  desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla gravida elit nec ipsum condimentum lacinia. Aenean fringilla ipsum vitae tortor mollis, at efficitur diam porttitor. Phasellus rutrum odio libero, at sollicitudin est hendrerit nec. Pellentesque magna purus, convallis a mauris quis, sollicitudin ornare justo. Suspendisse vitae mi ac purus rhoncus imperdiet. Duis diam arcu, pretium in sem eget, tristique semper lacus. Aenean egestas diam eu eros mattis, nec maximus metus fermentum. Vivamus nec mi sem. Duis fermentum iaculis turpis id iaculis. Etiam facilisis ante tortor, et consectetur lectus fermentum at. Mauris consectetur eros sit amet sapien efficitur imperdiet. Aenean ac mauris elementum, tempor ipsum nec, accumsan ante. Donec pretium, felis vel rutrum iaculis, odio nulla auctor tortor, non fermentum lacus urna vel nulla. Vivamus in mi non orci aliquam convallis. Sed malesuada sagittis pretium. Mauris fringilla purus vel lectus rutrum, a dapibus elit tristique.",
-  imgUrl: "https://picsum.photos/500",
-  imgAlt: "",
-  rating: 4.9,
-}
 
 const Home = () => {
   return (
-    <Main>
-      <Product desc={DATA.desc} name={DATA.name} imgUrl={DATA.imgUrl} imgAlt={DATA.imgAlt} rating={DATA.rating} />
+    <Main cssClass="flex place-items-center p-8">
+      <div className="mx-auto max-w-xl text-center">
+        <h1 className="text-3xl font-extrabold sm:text-5xl">
+          Understand User Flow.
+          <strong className="font-extrabold text-slate-700 sm:block">
+            Increase Conversion.
+          </strong>
+        </h1>
+
+        <p className="mt-4 sm:text-xl sm:leading-relaxed">
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt illo
+          tenetur fuga ducimus numquam ea!
+        </p>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <Link href="/products">
+            <a className="block w-full rounded bg-slate-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-slate-700 focus:outline-none focus:ring active:bg-slate-500 sm:w-auto">
+              Get Started
+            </a>
+          </Link>
+
+          <Link href="/about">
+            <a className="block w-full rounded px-12 py-3 text-sm font-medium text-slate-600 shadow hover:text-slate-700 focus:outline-none focus:ring active:text-slate-500 sm:w-auto">
+              Learn More
+            </a>
+          </Link>
+        </div>
+      </div>
     </Main>
   )
 }
