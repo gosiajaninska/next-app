@@ -5,7 +5,7 @@ export const Header = () => {
   const router = useRouter()
 
   return (
-    <header aria-label="Site Header" className="border-b border-gray-500">
+    <header aria-label="Site Header" className="border-b border-gray-500 px-4">
       <div
         className="mx-auto flex max-w-screen-2xl items-center justify-between"
       >
@@ -51,7 +51,7 @@ export const Header = () => {
           <nav className="hidden absolute top-20 right-0 left-0 flex-col p-4 bg-slate-200 lg:flex gap-4 lg:static lg:flex-row lg:bg-transparent lg:h-20 lg:p-0 text-xs font-bold uppercase lg:tracking-wide text-gray-500" aria-label="Site Nav">
             <Link href="/products">
               <a
-                className={`flex items-center border-b-4 ${router.pathname.startsWith('/products') ? 'border-current' : 'border-transparent'} leading-8 hover:border-current hover:text-red-700`}
+                className={`flex items-center border-b-4 ${router.pathname.startsWith('/products') ? 'border-current' : 'border-transparent'} leading-8 hover:border-current hover:opacity-75`}
               >
                 Products
               </a>
@@ -59,7 +59,7 @@ export const Header = () => {
 
             <Link href="/sale">
               <a
-                className={`flex items-center border-b-4 ${router.pathname.startsWith('/sale') ? 'border-current' : 'border-transparent'} leading-8 hover:border-current hover:text-red-700`}
+                className={`flex items-center border-b-4 ${router.pathname.startsWith('/sale') ? 'border-current' : 'border-transparent'} leading-8 hover:border-current hover:opacity-75`}
               >
                 Sale
               </a>
@@ -67,7 +67,7 @@ export const Header = () => {
 
             <Link href="/about">
               <a
-                className={`flex items-center border-b-4 ${router.pathname.startsWith('/about') ? 'border-current' : 'border-transparent'} leading-8 hover:border-current hover:text-red-700`}
+                className={`flex items-center border-b-4 ${router.pathname.startsWith('/about') ? 'border-current' : 'border-transparent'} leading-8 hover:border-current hover:opacity-75`}
               >
                 About
               </a>
@@ -75,7 +75,7 @@ export const Header = () => {
 
             <Link href="/contact">
               <a
-                className={`flex items-center border-b-4 border-${router.pathname.startsWith('/contact') ? 'current' : 'transparent'} leading-8 hover:border-current hover:text-red-700`}
+                className={`flex items-center border-b-4 border-${router.pathname.startsWith('/contact') ? 'current' : 'transparent'} leading-8 hover:border-current hover:opacity-75`}
               >
                 Contact
               </a>
@@ -85,7 +85,7 @@ export const Header = () => {
           <div className="h-20 lg:ml-8 flex items-center">
             <Link href="/cart">
               <a
-                className={`flex items-center h-full text-gray-500 border-b-4 border-${router.pathname.startsWith('/cart') ? 'current' : 'transparent'} p-6 hover:border-red-700`}
+                className={`flex items-center h-full text-gray-500 border-b-4 border-${router.pathname.startsWith('/cart') ? 'current' : 'transparent'} p-6 hover:opacity-75`}
               >
                 <svg
                   className="h-4 w-4"
@@ -108,7 +108,7 @@ export const Header = () => {
 
             <Link href="/account">
               <a
-                className={`flex items-center h-full text-gray-500 border-b-4 border-${router.pathname.startsWith('/account') ? 'current' : 'transparent'} p-6 hover:border-red-700`}
+                className={`flex items-center h-full text-gray-500 border-b-4 border-${router.pathname.startsWith('/account') ? 'current' : 'transparent'} p-6 hover:opacity-75`}
               >
                 <svg
                   className="h-4 w-4"
@@ -131,7 +131,7 @@ export const Header = () => {
 
             <Link href="/search">
               <a
-                className={`hidden lg:flex items-center h-full text-gray-500 border-b-4 border-${router.pathname.startsWith('/account') ? 'current' : 'transparent'} p-6 hover:border-red-700`}
+                className={`hidden lg:flex items-center h-full text-gray-500 border-b-4 border-${router.pathname.startsWith('/account') ? 'current' : 'transparent'} p-6 hover:opacity-75`}
               >
                 <svg
                   className="h-4 w-4"
