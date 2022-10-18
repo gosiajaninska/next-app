@@ -3,7 +3,7 @@ import { Main } from "../../components/Main"
 import { Product } from "../../components/Product"
 import { PRODUCTS } from "../api/products"
 
-const Products = () => {
+const ProductsPage = () => {
   return (
     <Main cssClass="flex flex-col justify-center">
       <div className="grid grid-cols-1 lg:grid-cols-3 lg:items-stretch">
@@ -55,4 +55,4 @@ const Products = () => {
   )
 }
 
-export default Products
+export default ProductsPage

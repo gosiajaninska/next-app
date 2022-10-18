@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Main } from "../components/Main"
 
-const Home = () => {
+const HomePage = () => {
   return (
     <Main cssClass="flex place-items-center p-8">
       <div className="mx-auto max-w-xl text-center">
@@ -35,4 +35,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default HomePage

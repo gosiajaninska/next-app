@@ -1,7 +1,7 @@
 import { Main } from '../components/Main'
 import Link from 'next/link'
 
-export default function FourOhFour() {
+const FourOhFourPage = () => {
   return (
     <Main cssClass="flex flex-col place-items-center place-content-center p-8">
       <h1>404 - Page Not Found</h1>
@@ -13,3 +13,5 @@ export default function FourOhFour() {
     </Main>
   )
 }
+
+export default FourOhFourPage
