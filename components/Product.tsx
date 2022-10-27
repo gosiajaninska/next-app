@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from 'next/image';
+import { Rating } from "./Rating";
 
 interface Product {
   id:          number;
@@ -21,23 +22,28 @@ interface ProductProps {
 
 export const Product = ({ productData }: ProductProps) => {
   return (
-    <Link href={`products/${productData.id}`}>
-      <a className="block border border-gray-100 hover:border-gray-300 overflow-hidden shadow-lg">
-        <div className="bg-white p-8 shadow-gray-200 shadow-md">
-          <Image
-            src={productData.imgUrl}
-            alt={productData.imgAlt}
-            width={650}
-            height={650}
-            className="aspect-square w-full object-contain"
-          />
+    <div className="grid md:grid-cols-2 md:mx-16 md:my-0 m-8 gap-8">
+      <div className="bg-white p-16 md:my-16 shadow-lg">
+        <Image
+          src={productData.imgUrl}
+          alt={productData.imgAlt}
+          width={650}
+          height={650}
+          className="aspect-square w-full object-contain"
+        />
+      </div>
+      <div className="p-8 md:my-16 h-full">
+        <h1 className="font-bold text-2xl">{productData.name}</h1>
+        <Rating 
+          rate={productData.rating.rate} 
+          count={productData.rating.count} 
+        />
+        <p className="mt-1 text-sm text-slate-700">{productData.desc}</p>
+        <div className="flex my-6">
+          <p className="mt-1 text-slate-700">${productData.price}</p>
         </div>
-        <div className="p-4 bg-white h-full">
-          <h3 className="font-medium">{productData.name}</h3>
-          <p className="mt-1 text-sm text-slate-700">${productData.price}</p>
-        </div>
-      </a>
-    </Link>
+      </div>
+    </div>
   )
 }
 

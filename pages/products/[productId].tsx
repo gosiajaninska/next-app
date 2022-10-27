@@ -1,4 +1,5 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
+import { Main } from "../../components/Main";
 import { Product } from "../../components/Product";
 
 const ProductPage = ({ product }: InferGetStaticPropsType<typeof getStaticProps>) => {
@@ -6,23 +7,25 @@ const ProductPage = ({ product }: InferGetStaticPropsType<typeof getStaticProps>
     return <>Ups...</>
   }
 
-  return (<>
-    <Product
-      productData={{
-        id:       product.id,
-        name:     product.title,
-        imgUrl:   product.image,
-        imgAlt:   product.title,
-        price:    product.price,
-        desc:     product.description,
-        category: product.category,
-        rating: {
-          rate:   product.rating.rate,
-          count:  product.rating.count,
-        },
-      }}
-    />
-  </>);
+  return (
+    <Main cssClass="flex flex-col justify-center">
+      <Product
+        productData={{
+          id:       product.id,
+          name:     product.title,
+          imgUrl:   product.image,
+          imgAlt:   product.title,
+          price:    product.price,
+          desc:     product.description,
+          category: product.category,
+          rating: {
+            rate:   product.rating.rate,
+            count:  product.rating.count,
+          },
+        }}
+      />
+    </Main>
+  );
 }
 
 export default ProductPage;

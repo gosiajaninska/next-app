@@ -1,7 +1,12 @@
 interface RatingProps {
-  rating: number
+  rate: number,
+  count: number,
 }
 
-export const Rating = ({ rating }: RatingProps) => {
-  return <div className="font-bold py-4 text-red-400">{rating}</div>
+export const Rating = ({ rate, count }: RatingProps) => {
+  return (
+    <p className="font-bold py-4 text-gray-400">
+      {rate} ({count})
+    </p>
+  );
 }
