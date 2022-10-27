@@ -1,14 +1,21 @@
+import { InferGetStaticPropsType } from "next"
 import { Main } from "../../components/Main"
 import { Product } from "../../components/Product"
-import { PRODUCTS } from "../api/products"
 
-const ProductsPage = () => {
+const ProductsPage = ({ products }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Main cssClass="flex flex-col justify-center">
       <div className="p-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16 lg:grid-cols-4">
         {
-          PRODUCTS.map((product) => {
-            return <Product key={product.id} id={product.id} name={product.name} imgUrl={product.imgUrl} imgAlt={product.imgAlt} price={product.price} />;
+          products.map((product) => {
+            return <Product 
+              key={product.id} 
+              id={product.id} 
+              name={product.title} 
+              imgUrl={product.image} 
+              imgAlt={product.title} 
+              price={product.price} 
+            />;
           })
         }
       </div>
@@ -16,4 +23,32 @@ const ProductsPage = () => {
   )
 }
 
-export default ProductsPage
+export default ProductsPage;
+
+export interface StoreApiResponse {
+  id:          number;
+  title:       string;
+  price:       number;
+  description: string;
+  category:    string;
+  image:       string;
+  rating: {
+    rate:      number;
+    count:     number;
+  };
+}
+
+export const getStaticProps = async () => {
+  const response = await fetch('https://fakestoreapi.com/products/');
+  const data: StoreApiResponse[] = await response.json();
+
+  return {
+    props: {
+      products: data,
+    }
+  };
+};
+
+
+
+
