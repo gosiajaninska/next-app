@@ -1,6 +1,7 @@
 import { Main } from "../components/Main";
 import { ProductListItem } from "../components/Product";
 import { useQuery } from '@tanstack/react-query';
+import Pagination from "../components/Pagination";
 
 const getProducts = async () => {
   const response = await fetch(`https://fakestoreapi.com/products/`);
@@ -38,6 +39,7 @@ const SalePage = () => {
           })
         }
       </div>
+      <Pagination activePageNumber={1} />
     </Main>
   )
 }
