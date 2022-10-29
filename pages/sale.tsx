@@ -2,16 +2,34 @@ import { Main } from "../components/Main";
 import { ProductListItem } from "../components/Product";
 import { useQuery } from '@tanstack/react-query';
 import Pagination from "../components/Pagination";
+import { useState } from "react";
 
-const getProducts = async () => {
-  const response = await fetch(`https://fakestoreapi.com/products/`);
+const getProducts = async ({ queryKey }) => {
+  const { productsPerPage, offset } = queryKey[1];
+
+  const response = await fetch(
+    `https://naszsklep-api.vercel.app/api/products?take=${productsPerPage}&offset=${offset}`
+  );
   const products: StoreApiResponse[] = await response.json();
   return products;
 }
 
 const SalePage = () => {
 
-  const { data, isLoading, isError } = useQuery(["products"], getProducts);
+  const productsPerPage = 25;
+  const [ pageNumber, setPageNumber ] = useState<number>(1);
+  const offset = pageNumber * productsPerPage;
+
+  const { data, isLoading, isError } = useQuery(
+    [
+      "products", 
+      { 
+        productsPerPage: productsPerPage, 
+        offset: offset,
+      }
+    ], 
+    getProducts
+  );
 
   if (isLoading) { 
     return <Main><div>Loading...</div></Main>;
@@ -19,6 +37,12 @@ const SalePage = () => {
 
   if (!data || isError) {
     return <Main><div>ups...</div></Main>;
+  }
+
+  const changePage = (pageNumber: number) => {
+    console.log(pageNumber);
+    setPageNumber(pageNumber);
+    console.log(pageNumber);
   }
 
   return (
@@ -39,7 +63,7 @@ const SalePage = () => {
           })
         }
       </div>
-      <Pagination activePageNumber={1} />
+      <Pagination activePageNumber={pageNumber} onClick={changePage}/>
     </Main>
   )
 }

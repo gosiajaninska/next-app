@@ -1,19 +1,28 @@
+
 interface PaginationProps {
   activePageNumber: number,
+  onClick: Function
 }
 
-const Pagination = ({ activePageNumber }: PaginationProps) => {
+const Pagination = ({ activePageNumber, onClick }: PaginationProps) => {
 
-  const pageLink = (pageNumber:number, isActive=false) => {
+  const clickHandler = ({ target }) => {
+    const pageNumber = target.dataset.page;
+    onClick(pageNumber);
+  }
+
+  const pageLink = (pageNumber:number, isActive:boolean) => {
     return (
       <a
         href="#"
+        onClick={clickHandler}
+        data-page={pageNumber}
         className={`border-transparent ${isActive ? "border-t-gray-500" : "border-t-transparent"} hover:bg-gray-200 border-t-4 border-b-4 py-4 px-4 inline-flex items-center`}
       >
         {pageNumber}
       </a>    
     )
-  } 
+  }
 
   return (
     <nav className="border-t border-gray-500 px-4 flex items-center justify-center sm:px-0">
