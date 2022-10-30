@@ -1,10 +1,11 @@
 
 interface PaginationProps {
   activePageNumber: number,
-  onClick: Function
+  pagesQuantity: number,
+  onClick: Function,
 }
 
-const Pagination = ({ activePageNumber, onClick }: PaginationProps) => {
+const Pagination = ({ activePageNumber, pagesQuantity, onClick }: PaginationProps) => {
 
   const clickHandler = ({ target }) => {
     const pageNumber = target.dataset.page;
@@ -14,6 +15,7 @@ const Pagination = ({ activePageNumber, onClick }: PaginationProps) => {
   const pageLink = (pageNumber:number, isActive:boolean) => {
     return (
       <a
+        key={pageNumber}
         href="#"
         onClick={clickHandler}
         data-page={pageNumber}
@@ -24,17 +26,18 @@ const Pagination = ({ activePageNumber, onClick }: PaginationProps) => {
     )
   }
 
+  const allPagesLinks = (activePageNumber:number, pagesQuantity:number) => {
+    let links = [];
+    for (let i = 1; i <= pagesQuantity; i++) {
+      links.push( pageLink(i, activePageNumber == i) );
+    }
+    return links;
+  }
+
+
   return (
     <nav className="border-t border-gray-500 px-4 flex items-center justify-center sm:px-0">
-      {pageLink(1, activePageNumber == 1)}
-      {pageLink(2, activePageNumber == 2)}
-      {pageLink(3, activePageNumber == 3)}
-      <span className="border-transparent text-gray-500 border-t-2 py-4 px-4 inline-flex items-center text-sm ">
-        ...
-      </span>
-      {pageLink(8, activePageNumber == 8)}
-      {pageLink(9, activePageNumber == 9)}
-      {pageLink(10, activePageNumber == 10)}
+      { allPagesLinks(activePageNumber, pagesQuantity) }
     </nav>
   )
 }

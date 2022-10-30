@@ -40,9 +40,7 @@ const SalePage = () => {
   }
 
   const changePage = (pageNumber: number) => {
-    console.log(pageNumber);
     setPageNumber(pageNumber);
-    console.log(pageNumber);
   }
 
   return (
@@ -63,7 +61,11 @@ const SalePage = () => {
           })
         }
       </div>
-      <Pagination activePageNumber={pageNumber} onClick={changePage}/>
+      <Pagination 
+        activePageNumber={pageNumber}
+        pagesQuantity={10}
+        onClick={changePage}
+      />
     </Main>
   )
 }
