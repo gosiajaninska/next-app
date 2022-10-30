@@ -5,7 +5,7 @@ interface PaginationProps {
   onClick: Function,
 }
 
-const Pagination = ({ activePageNumber, pagesQuantity, onClick }: PaginationProps) => {
+export const Pagination = ({ activePageNumber, pagesQuantity, onClick }: PaginationProps) => {
 
   const clickHandler = ({ target }) => {
     const pageNumber = target.dataset.page;
@@ -41,5 +41,3 @@ const Pagination = ({ activePageNumber, pagesQuantity, onClick }: PaginationProp
     </nav>
   )
 }
-
-export default Pagination;

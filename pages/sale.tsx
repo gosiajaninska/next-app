@@ -1,7 +1,7 @@
 import { Main } from "../components/Main";
 import { ProductListItem } from "../components/Product";
 import { useQuery } from '@tanstack/react-query';
-import Pagination from "../components/Pagination";
+import { Pagination } from "../components/Pagination";
 import { useState } from "react";
 
 const getProducts = async ({ queryKey }) => {
