@@ -23,10 +23,10 @@ export const Footer = () => {
           <div className="py-4">
             <p className="text-xs font-bold uppercase text-gray-500">Legal</p>
             <nav className="mt-4 flex flex-col space-y-2 text-sm text-gray-400">
-              <Link href="#"><a className="hover:opacity-75"> Delivery </a></Link>
-              <Link href="#"><a className="hover:opacity-75"> Returns Policy </a></Link>
-              <Link href="#"><a className="hover:opacity-75"> Privacy Policy </a></Link>
-              <Link href="#"><a className="hover:opacity-75"> Terms & Conditions </a></Link>
+              <Link href="/"><a className="hover:opacity-75"> Delivery </a></Link>
+              <Link href="/"><a className="hover:opacity-75"> Returns Policy </a></Link>
+              <Link href="/"><a className="hover:opacity-75"> Privacy Policy </a></Link>
+              <Link href="/"><a className="hover:opacity-75"> Terms & Conditions </a></Link>
             </nav>
           </div>
 
