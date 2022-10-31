@@ -2,8 +2,15 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { Main } from "../../../components/Main";
 import { ProductsList } from "../../../components/ProductsList";
 import { PaginationStatic } from "../../../components/Pagination";
+import { useRouter } from "next/router";
 
 const ProductsPage = ({ products, pageNumber }: InferGetStaticPropsType<typeof getStaticProps>) => {
+
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>
+  }
 
   return (
     <Main cssClass="flex flex-col justify-center">
@@ -50,11 +57,11 @@ const pagesPaths = (pagesQuantity:number) => {
 
 
 export const getStaticPaths = async () => {
-  const pagesQuantity = 10;
+  const pagesQuantity = 5;
 
   return {
     paths: pagesPaths(pagesQuantity),
-    fallback: false,
+    fallback: true,
   }
 }
 
