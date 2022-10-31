@@ -1,28 +1,15 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { Main } from "../../../components/Main";
-import { ProductListItem } from "../../../components/Product";
+import { ProductsList } from "../../../components/ProductsList";
 import { PaginationStatic } from "../../../components/Pagination";
 
 const ProductsPage = ({ products, pageNumber }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   return (
     <Main cssClass="flex flex-col justify-center">
-      <div className="p-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16 lg:grid-cols-4">
-        {
-          products.map(product => {
-            return <ProductListItem 
-              key={product.id}
-              productData={{
-                id:     product.id,
-                name:   product.title,
-                imgUrl: product.image,
-                imgAlt: product.title,
-                price:  product.price,
-              }}
-            />;
-          })
-        }
-      </div>
+      <ProductsList
+        products={products}
+      />
       <PaginationStatic
         activePageNumber={pageNumber}
         pagesQuantity={10}
