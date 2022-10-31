@@ -18,7 +18,7 @@ const SalePage = () => {
 
   const productsPerPage = 25;
   const [ pageNumber, setPageNumber ] = useState<number>(1);
-  const offset = pageNumber * productsPerPage;
+  const offset = productsPerPage * (pageNumber - 1);
 
   const { data, isLoading, isError } = useQuery(
     [
