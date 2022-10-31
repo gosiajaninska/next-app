@@ -9,7 +9,7 @@ interface PaginationProps {
 
 export const Pagination = ({ activePageNumber, pagesQuantity, onClick }: PaginationProps) => {
 
-  const clickHandler = ({ target }) => {
+  const clickHandler = ({ target }: any) => {
     const pageNumber = target.dataset.page;
     onClick(pageNumber);
   }

@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Pagination } from "../components/Pagination";
 import { useState } from "react";
 
-const getProducts = async ({ queryKey }) => {
+const getProducts = async ({ queryKey }: any) => {
   const { productsPerPage, offset } = queryKey[1];
 
   const response = await fetch(
