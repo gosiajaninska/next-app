@@ -33,7 +33,7 @@ export interface StoreApiResponse {
 }
 
 export const getStaticProps = async () => {
-  const response = await fetch('https://fakestoreapi.com/products/');
+  const response = await fetch(`https://naszsklep-api.vercel.app/api/products/`);
   const products: StoreApiResponse[] = await response.json();
 
   return {
