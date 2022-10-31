@@ -43,7 +43,7 @@ export const PaginationStatic = ({ activePageNumber, pagesQuantity }: Pagination
 
   const pageLink = (pageNumber:number, isActive:boolean) => {
     return (
-      <Link href={pageNumber.toString()} key={pageNumber}>
+      <Link href={`/products/page/${pageNumber.toString()}`} key={pageNumber}>
         <a
           className={`border-transparent ${isActive ? "border-t-gray-500" : "border-t-transparent"} hover:bg-gray-200 border-t-4 border-b-4 py-4 px-4 inline-flex items-center`}
         >
