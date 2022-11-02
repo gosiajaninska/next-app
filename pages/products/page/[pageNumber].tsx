@@ -4,7 +4,7 @@ import { ProductsList } from "../../../components/ProductsList";
 import { PaginationStatic } from "../../../components/Pagination";
 import { useRouter } from "next/router";
 
-const ProductsPage = ({ products, pageNumber }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const ProductsPage = ({ products, pageNumber, productsQuantity, pagesQuantity }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   const router = useRouter();
 
@@ -14,12 +14,15 @@ const ProductsPage = ({ products, pageNumber }: InferGetStaticPropsType<typeof g
 
   return (
     <Main cssClass="flex flex-col justify-center">
+      <p className="mx-16 mt-16 text-xl font-bold text-gray-500">
+        {productsQuantity} products
+      </p>
       <ProductsList
         products={products}
       />
       <PaginationStatic
         activePageNumber={pageNumber}
-        pagesQuantity={10}
+        pagesQuantity={pagesQuantity}
       />
     </Main>
   )
@@ -65,19 +68,48 @@ export const getStaticPaths = async () => {
   }
 }
 
+
+const countProducts = () => {
+  let count = 0;
+  return new Promise<number>(async resolve => {    
+    const productsPerPage = 1000;
+    let products = [];
+    
+    do {
+      products = await getProducts(productsPerPage, count);
+      count += products.length;
+    } while (products.length == productsPerPage)
+
+    resolve(count);
+  });
+}
+
+
+const getProducts = async (productsPerPage:number, offset:number) => {
+  const response = await fetch(
+    `https://naszsklep-api.vercel.app/api/products/?take=${productsPerPage}&offset=${offset}`
+    );
+  const products: StoreApiResponse[] = await response.json();
+  return products;
+}
+
+
 export const getStaticProps = async ({ params }: GetStaticPropsContext<{ pageNumber: string }>) => {
 
   const productsPerPage = 25;
   const pageNumber = parseInt(params?.pageNumber || "1");
   const offset = productsPerPage * (pageNumber - 1);
 
-  const response = await fetch(`https://naszsklep-api.vercel.app/api/products/?take=${productsPerPage}&offset=${offset}`);
-  const products: StoreApiResponse[] = await response.json();
+  const products = await getProducts(productsPerPage, offset);
+  const productsQuantity = await countProducts();
+  const pagesQuantity = Math.ceil(productsQuantity / productsPerPage);
 
   return {
     props: {
       products,
       pageNumber,
+      productsQuantity,
+      pagesQuantity,
     }
   };
 };

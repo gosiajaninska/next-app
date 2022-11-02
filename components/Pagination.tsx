@@ -66,7 +66,7 @@ const renderNav = (activePageNumber:number, pagesQuantity:number, pageLink:Funct
   }
   
   return (
-    <nav className="border-t border-gray-500 px-4 flex items-center justify-center sm:px-0">
+    <nav className="border-t border-gray-500 px-4 flex flex-wrap items-center justify-center sm:px-0">
       { links }
     </nav>
   );
