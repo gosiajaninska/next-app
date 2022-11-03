@@ -27,8 +27,9 @@ export const Product = ({ productData }: ProductProps) => {
         <Image
           src={productData.imgUrl}
           alt={productData.imgAlt}
-          width={650}
-          height={650}
+          layout="responsive"
+          width={1}
+          height={1}
           className="aspect-square w-full object-contain"
         />
       </div>
@@ -65,8 +66,9 @@ export const ProductListItem = ({ productData }: ProductListItemProps) => {
           <Image
             src={productData.imgUrl}
             alt={productData.imgAlt}
-            width={650}
-            height={650}
+            layout="responsive"
+            width={1}
+            height={1}
             className="aspect-square w-full object-contain"
           />
         </div>
