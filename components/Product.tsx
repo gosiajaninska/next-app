@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from 'next/image';
 import { Rating } from "./Rating";
+import ReactMarkdown from 'react-markdown';
 
 interface Product {
   id:          number;
@@ -44,7 +45,7 @@ export const Product = ({ productData }: ProductProps) => {
         <div className="flex my-6">
           <p className="mt-1 text-slate-700">${productData.price}</p>
         </div>
-        <p className="mt-1 text-sm text-slate-700">{productData.longDesc}</p>
+        <div className="mt-1 prose text-sm text-slate-700"><ReactMarkdown>{productData.longDesc}</ReactMarkdown></div>
       </div>
     </div>
   )
