@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from 'next/image';
 import { Rating } from "./Rating";
+import ReactMarkdown from 'react-markdown';
+import { NextSeo } from 'next-seo';
 
 interface Product {
   id:          number;
@@ -10,6 +12,7 @@ interface Product {
   category:    string;
   imgUrl:      string;
   imgAlt:      string;
+  longDesc:    string;
   rating: {
     rate:      number;
     count:     number;
@@ -23,6 +26,24 @@ interface ProductProps {
 export const Product = ({ productData }: ProductProps) => {
   return (
     <div className="grid md:grid-cols-2 md:mx-16 md:my-0 m-8 gap-8">
+      <NextSeo
+        title={productData.name}
+        description={productData.desc}
+        canonical={`https://next-app-mu-lake.vercel.app/products/${productData.id}`}
+        openGraph={{
+          url: `https://next-app-mu-lake.vercel.app/products/${productData.id}`,
+          title: productData.name,
+          description: productData.desc,
+          images: [
+            {
+              url: productData.imgUrl,
+              alt: productData.imgAlt,
+              type: 'image/jpeg',
+            },
+          ],
+          siteName: 'myShop',
+        }}
+      />
       <div className="bg-white p-16 md:my-16 shadow-lg">
         <Image
           src={productData.imgUrl}
@@ -39,10 +60,11 @@ export const Product = ({ productData }: ProductProps) => {
           rate={productData.rating.rate} 
           count={productData.rating.count} 
         />
-        <p className="mt-1 text-sm text-slate-700">{productData.desc}</p>
+        <p className="mt-1 text-sm font-bold text-slate-700">{productData.desc}</p>
         <div className="flex my-6">
           <p className="mt-1 text-slate-700">${productData.price}</p>
         </div>
+        <div className="mt-1 prose text-sm text-slate-700"><ReactMarkdown>{productData.longDesc}</ReactMarkdown></div>
       </div>
     </div>
   )

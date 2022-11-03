@@ -17,6 +17,7 @@ const ProductPage = ({ product }: InferGetStaticPropsType<typeof getStaticProps>
           imgAlt:   product.title,
           price:    product.price,
           desc:     product.description,
+          longDesc: product.longDescription,
           category: product.category,
           rating: {
             rate:   product.rating.rate,
@@ -31,20 +32,21 @@ const ProductPage = ({ product }: InferGetStaticPropsType<typeof getStaticProps>
 export default ProductPage;
 
 export interface StoreApiResponse {
-  id:          number;
-  title:       string;
-  price:       number;
-  description: string;
-  category:    string;
-  image:       string;
+  id:               number;
+  title:            string;
+  price:            number;
+  description:      string;
+  category:         string;
+  image:            string;
+  longDescription:  string;
   rating: {
-    rate:      number;
-    count:     number;
+    rate:           number;
+    count:          number;
   };
 }
 
 export const getStaticPaths = async () => {
-  const response = await fetch(`https://fakestoreapi.com/products/`);
+  const response = await fetch(`https://naszsklep-api.vercel.app/api/products/`);
   const products: StoreApiResponse[] = await response.json();
 
   return {
@@ -61,7 +63,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext<{ product
     }
   }
 
-  const response = await fetch(`https://fakestoreapi.com/products/${params.productId}`);
+  const response = await fetch(`https://naszsklep-api.vercel.app/api/products/${params.productId}`);
   const product: StoreApiResponse | null = await response.json();
 
   return {
