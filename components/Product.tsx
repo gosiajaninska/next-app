@@ -10,6 +10,7 @@ interface Product {
   category:    string;
   imgUrl:      string;
   imgAlt:      string;
+  longDesc:    string;
   rating: {
     rate:      number;
     count:     number;
@@ -39,10 +40,11 @@ export const Product = ({ productData }: ProductProps) => {
           rate={productData.rating.rate} 
           count={productData.rating.count} 
         />
-        <p className="mt-1 text-sm text-slate-700">{productData.desc}</p>
+        <p className="mt-1 text-sm font-bold text-slate-700">{productData.desc}</p>
         <div className="flex my-6">
           <p className="mt-1 text-slate-700">${productData.price}</p>
         </div>
+        <p className="mt-1 text-sm text-slate-700">{productData.longDesc}</p>
       </div>
     </div>
   )
