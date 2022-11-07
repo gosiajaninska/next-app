@@ -66,6 +66,13 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext<{ product
   const response = await fetch(`https://naszsklep-api.vercel.app/api/products/${params.productId}`);
   const product: StoreApiResponse | null = await response.json();
 
+  if (!product) {
+    return {
+      props: {},
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       product,
