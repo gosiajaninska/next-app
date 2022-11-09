@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote' ;
+import { MDXRemote } from 'next-mdx-remote' ;
+import { MarkdownResult } from "../utility";
 
 
-export const MyMarkdown = ({ children }: { 
-  children: MDXRemoteSerializeResult<Record<string, unknown>, Record<string, string>> 
-}) => {
+export const MyMarkdown = ({ children }: { children: MarkdownResult }) => {
   return( 
     <MDXRemote 
       {...children} 
