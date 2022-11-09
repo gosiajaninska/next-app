@@ -2,6 +2,7 @@ import { InferGetStaticPropsType } from "next";
 import { Main } from "../../components/Main";
 import { PaginationStatic } from "../../components/Pagination";
 import { ProductsList } from "../../components/ProductsList";
+import { StoreApiResponse } from "../../utility";
 
 const ProductsPage = ({ products }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
@@ -18,19 +19,6 @@ const ProductsPage = ({ products }: InferGetStaticPropsType<typeof getStaticProp
 }
 
 export default ProductsPage;
-
-export interface StoreApiResponse {
-  id:          number;
-  title:       string;
-  price:       number;
-  description: string;
-  category:    string;
-  image:       string;
-  rating: {
-    rate:      number;
-    count:     number;
-  };
-}
 
 export const getStaticProps = async () => {
   const response = await fetch(`https://naszsklep-api.vercel.app/api/products/`);

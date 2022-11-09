@@ -2,6 +2,7 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { Main } from "../../components/Main";
 import { Product } from "../../components/Product";
 import { serialize } from 'next-mdx-remote/serialize';
+import { StoreApiResponse } from "../../utility";
 
 const ProductPage = ({ product }: InferGetStaticPropsType<typeof getStaticProps>) => {
   if (!product) {
@@ -31,20 +32,6 @@ const ProductPage = ({ product }: InferGetStaticPropsType<typeof getStaticProps>
 }
 
 export default ProductPage;
-
-export interface StoreApiResponse {
-  id:               number;
-  title:            string;
-  price:            number;
-  description:      string;
-  category:         string;
-  image:            string;
-  longDescription:  string;
-  rating: {
-    rate:           number;
-    count:          number;
-  };
-}
 
 export const getStaticPaths = async () => {
   const response = await fetch(`https://naszsklep-api.vercel.app/api/products/`);

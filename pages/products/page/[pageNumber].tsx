@@ -3,6 +3,7 @@ import { Main } from "../../../components/Main";
 import { ProductsList } from "../../../components/ProductsList";
 import { PaginationStatic } from "../../../components/Pagination";
 import { useRouter } from "next/router";
+import { StoreApiResponse } from "../../../utility";
 
 const ProductsPage = ({ products, pageNumber, productsQuantity, pagesQuantity }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
@@ -29,19 +30,6 @@ const ProductsPage = ({ products, pageNumber, productsQuantity, pagesQuantity }:
 }
 
 export default ProductsPage;
-
-export interface StoreApiResponse {
-  id:          number;
-  title:       string;
-  price:       number;
-  description: string;
-  category:    string;
-  image:       string;
-  rating: {
-    rate:      number;
-    count:     number;
-  };
-}
 
 
 const pagesPaths = (pagesQuantity:number) => {

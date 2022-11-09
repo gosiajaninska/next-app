@@ -3,6 +3,7 @@ import { ProductsList } from "../components/ProductsList";
 import { useQuery } from '@tanstack/react-query';
 import { Pagination } from "../components/Pagination";
 import { useState } from "react";
+import { StoreApiResponse } from "../utility";
 
 const getProducts = async ({ queryKey }: any) => {
   const { productsPerPage, offset } = queryKey[1];
@@ -59,15 +60,3 @@ const SalePage = () => {
 
 export default SalePage;
 
-export interface StoreApiResponse {
-  id:          number;
-  title:       string;
-  price:       number;
-  description: string;
-  category:    string;
-  image:       string;
-  rating: {
-    rate:      number;
-    count:     number;
-  };
-}
