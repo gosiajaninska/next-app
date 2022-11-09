@@ -1,6 +1,7 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { Main } from "../../components/Main";
 import { Product } from "../../components/Product";
+import { serialize } from 'next-mdx-remote/serialize';
 
 const ProductPage = ({ product }: InferGetStaticPropsType<typeof getStaticProps>) => {
   if (!product) {
@@ -73,9 +74,14 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext<{ product
     }
   }
 
+  const longDescription = await serialize(product.longDescription);
+
   return {
     props: {
-      product,
+      product: {
+        ...product,
+        longDescription: longDescription,
+      },
     }
   };
 }

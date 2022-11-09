@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Rating } from "./Rating";
 import { MyMarkdown } from './MyMarkdown';
 import { NextSeo } from 'next-seo';
+import { MDXRemoteSerializeResult } from 'next-mdx-remote';
 
 interface Product {
   id:          number;
@@ -12,7 +13,7 @@ interface Product {
   category:    string;
   imgUrl:      string;
   imgAlt:      string;
-  longDesc:    string;
+  longDesc:    MDXRemoteSerializeResult<Record<string, unknown>, Record<string, string>>;
   rating: {
     rate:      number;
     count:     number;
