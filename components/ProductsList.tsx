@@ -1,20 +1,8 @@
+import { StoreApiResponse } from "../utility";
 import { ProductListItem } from "./Product";
 
 interface ProductsProps {
   products: StoreApiResponse[],
-}
-
-interface StoreApiResponse {
-  id:          number;
-  title:       string;
-  price:       number;
-  description: string;
-  category:    string;
-  image:       string;
-  rating: {
-    rate:      number;
-    count:     number;
-  };
 }
 
 export const ProductsList = ({ products }: ProductsProps) => {

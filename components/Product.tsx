@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from 'next/image';
 import { Rating } from "./Rating";
-import ReactMarkdown from 'react-markdown';
+import { MyMarkdown } from './MyMarkdown';
 import { NextSeo } from 'next-seo';
+import { MarkdownResult } from "../utility";
 
 interface Product {
   id:          number;
@@ -12,7 +13,7 @@ interface Product {
   category:    string;
   imgUrl:      string;
   imgAlt:      string;
-  longDesc:    string;
+  longDesc:    MarkdownResult;
   rating: {
     rate:      number;
     count:     number;
@@ -64,7 +65,11 @@ export const Product = ({ productData }: ProductProps) => {
         <div className="flex my-6">
           <p className="mt-1 text-slate-700">${productData.price}</p>
         </div>
-        <div className="mt-1 prose text-sm text-slate-700"><ReactMarkdown>{productData.longDesc}</ReactMarkdown></div>
+        <div className="mt-1 prose text-sm text-slate-700">
+          <MyMarkdown>
+            {productData.longDesc}
+          </MyMarkdown>
+        </div>
       </div>
     </div>
   )
