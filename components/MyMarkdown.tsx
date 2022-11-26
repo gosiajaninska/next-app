@@ -43,10 +43,10 @@ const linkIsExternal = (href: string) => {
 }
 
 const appHost = () => {
-  const url = process.env.NEXT_PUBLIC_HOST;
+  const url = process.env.NEXT_PUBLIC_VERCEL_URL;
   
   if (!url) {
-    throw new Error(`Missing NEXT_PUBLIC_HOST env variable!`);
+    throw new Error(`Missing NEXT_PUBLIC_VERCEL_URL env variable!`);
   }
 
   return url;
