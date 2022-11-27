@@ -31,9 +31,7 @@ export const Header = () => {
 
   return (
     <header aria-label="Site Header" className="border-b border-gray-500 px-4 z-10">
-      <div
-        className="mx-auto flex max-w-screen-2xl items-center justify-between"
-      >
+      <div className="mx-auto flex md:gap-8 max-w-screen-2xl items-center justify-between">
         <div className="flex items-center">
           <button type="button" className="p-2 sm:mr-4 lg:hidden">
             <svg
@@ -55,7 +53,7 @@ export const Header = () => {
           <Logo cssClass="h-20 w-20 p-4"></Logo>
         </div>
 
-        <div className="flex flex-1 items-center justify-end">
+        <div className="flex flex-1 items-center justify-start">
           <nav className="hidden absolute top-20 right-0 left-0 flex-col p-4 bg-slate-200 lg:flex gap-4 lg:static lg:flex-row lg:bg-transparent lg:h-20 lg:p-0 text-xs font-bold uppercase lg:tracking-wide text-gray-500" aria-label="Site Nav">
 
             {NAV.map((link, i) => {
@@ -71,12 +69,10 @@ export const Header = () => {
             })}
 
           </nav>
+        </div>
 
+        <div className="flex flex-1 items-center justify-end">
           <div className="h-20 lg:ml-8 flex items-center">
-            <CartLink 
-              isActive={router.pathname.startsWith('/cart')} 
-            />
-
             <Link href="/account">
               <a
                 className={`flex items-center h-full text-gray-500 border-b-4 border-${router.pathname.startsWith('/account') ? 'current' : 'transparent'} p-6 hover:opacity-75`}
@@ -100,28 +96,9 @@ export const Header = () => {
               </a>
             </Link>
 
-            <Link href="/search">
-              <a
-                className={`hidden lg:flex items-center h-full text-gray-500 border-b-4 border-${router.pathname.startsWith('/account') ? 'current' : 'transparent'} p-6 hover:opacity-75`}
-              >
-                <svg
-                  className="h-4 w-4"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-
-                <span className="sr-only"> Search </span>
-              </a>
-            </Link>
+            <CartLink 
+              isActive={router.pathname.startsWith('/cart')} 
+            />
           </div>
         </div>
       </div>
