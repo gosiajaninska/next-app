@@ -9,9 +9,9 @@ const CartPage = () => {
       <h1 className="uppercase text-lg font-bold text-slate-600 py-12 px-8">Cart</h1>
       <ul className="px-8">
         { 
-          cartState.items.map((item, i) => {
+          cartState.items.map((item, index) => {
             return (
-              <li key={i} className="flex justify-between border-b border-gray-300 py-4 px-8">
+              <li key={`${item.title}_${index}`} className="flex justify-between border-b border-gray-300 py-4 px-8">
                 <span>{item.title}</span> 
                 <span>{item.price}</span>
               </li>
