@@ -65,7 +65,10 @@ export const Product = ({ productData }: ProductProps) => {
         <p className="mt-1 text-sm font-bold text-slate-700">{productData.desc}</p>
         <div className="flex flex-col gap-4 my-6">
           <p className="mt-1 text-slate-700">${productData.price}</p>
-          <AddToCartButton />
+          <AddToCartButton 
+            title={productData.name}
+            price={productData.price}
+          />
         </div>
 
         <div className="mt-1 prose text-sm text-slate-700">
@@ -108,7 +111,10 @@ export const ProductListItem = ({ productData }: ProductListItemProps) => {
             </Link>
           </h2>
           <p className="mt-1 mb-4 text-sm text-slate-700">${productData.price}</p>
-          <AddToCartButton />
+          <AddToCartButton 
+            title={productData.name}
+            price={productData.price}
+          />
         </div>
       </div>
   )

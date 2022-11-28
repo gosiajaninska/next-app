@@ -10,26 +10,21 @@ interface CartItem {
 
 interface CartState {
   items: CartItem[];
+  addToCart: (item: CartItem) => void;
 }
 
 const CartStateContext = createContext<CartState | null>(null);
 
 export const CartStateContextProvider = ({ children }: { children: ReactNode }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    {
-      price: 20.23,
-      title: "szałowa bluzka",
-    },
-    {
-      price: 38.14,
-      title: "szałowa kiecka",
-    },
-  ]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
   return (
     <CartStateContext.Provider 
       value={{
         items: cartItems,
+        addToCart: (item) => {
+          setCartItems((prevCartItems) => [...prevCartItems, item]);
+        }
       }}
     >
       { children }
