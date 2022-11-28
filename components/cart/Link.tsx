@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { useContext } from "react";
-import { CartStateContext } from "./Context";
+import { useCartState } from "./Context";
 import { CartIcon } from "./Icon";
 
 interface CartLinkProps {
@@ -8,7 +7,7 @@ interface CartLinkProps {
 }
 
 export const CartLink = ({ isActive }: CartLinkProps) => {
-  const CartState = useContext(CartStateContext);
+  const cartState = useCartState();
 
   return <Link href="/cart">
     <a
@@ -17,7 +16,7 @@ export const CartLink = ({ isActive }: CartLinkProps) => {
       <span 
         className="bg-red-400 text-white font-bold text-xs rounded-full aspect-square w-6 h-6 flex items-center justify-center"
       >
-        {CartState?.items.length}
+        {cartState.items.length}
       </span>
       <CartIcon></CartIcon>
       <span className="sr-only">Cart</span>

@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { ReactNode, useState } from "react";
 import { createContext } from "react";
 
@@ -11,7 +12,7 @@ interface CartState {
   items: CartItem[];
 }
 
-export const CartStateContext = createContext<CartState | null>(null);
+const CartStateContext = createContext<CartState | null>(null);
 
 export const CartStateContextProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([
@@ -34,4 +35,13 @@ export const CartStateContextProvider = ({ children }: { children: ReactNode }) 
       { children }
     </CartStateContext.Provider>
   )
+}
+
+
+export const useCartState = () => {
+  const cartState = useContext(CartStateContext);
+  if (!cartState) {
+    throw new Error("You forgot CartStateContextProvider");
+  }
+  return cartState;
 }
