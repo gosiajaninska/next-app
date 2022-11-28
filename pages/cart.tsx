@@ -7,18 +7,26 @@ const CartPage = () => {
   return (
     <Main>
       <h1 className="uppercase text-lg font-bold text-slate-600 py-12 px-8">Cart</h1>
-      <ul className="px-8">
-        { 
-          cartState.items.map((item, index) => {
-            return (
-              <li key={`${item.title}_${index}`} className="flex justify-between border-b border-gray-300 py-4 px-8">
-                <span>{item.title}</span> 
-                <span>{item.price}</span>
-              </li>
-            )
-          })
-        }
-      </ul>
+      <div className="grid md:grid-cols-2">
+        <ul className="px-8 pb-12 divide-y divide-slate-300">
+          { 
+            cartState.items.map((item, index) => {
+              return (
+                <li key={`${item.title}_${index}`} className="flex justify-between py-4 px-8 text-slate-700">
+                  <span>{item.amount} &times; {item.title}</span> 
+                  <span>{item.price}</span>
+                </li>
+              )
+            })
+          }
+        </ul>
+        <div className="px-8">
+          <p>
+            Items in cart: 
+            <b> { cartState.items.map(item => item.amount).reduce((total, num) => total + num) }</b>
+          </p>
+        </div>
+      </div>
     </Main>
   )
 }
