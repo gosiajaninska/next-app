@@ -4,6 +4,7 @@ import { Rating } from "./Rating";
 import { MyMarkdown } from './MyMarkdown';
 import { NextSeo } from 'next-seo';
 import { MarkdownResult } from "../utility";
+import { AddToCartButton } from "./cart/Button";
 
 interface Product {
   id:          number;
@@ -62,9 +63,11 @@ export const Product = ({ productData }: ProductProps) => {
           count={productData.rating.count} 
         />
         <p className="mt-1 text-sm font-bold text-slate-700">{productData.desc}</p>
-        <div className="flex my-6">
+        <div className="flex flex-col gap-4 my-6">
           <p className="mt-1 text-slate-700">${productData.price}</p>
+          <AddToCartButton />
         </div>
+
         <div className="mt-1 prose text-sm text-slate-700">
           <MyMarkdown>
             {productData.longDesc}
@@ -87,8 +90,7 @@ interface ProductListItemProps {
 
 export const ProductListItem = ({ productData }: ProductListItemProps) => {
   return (
-    <Link href={`products/${productData.id}`}>
-      <a className="block border border-gray-100 hover:border-gray-300 overflow-hidden shadow-lg">
+      <div className="block border border-gray-100 hover:border-gray-300 overflow-hidden shadow-lg">
         <div className="bg-white p-8 shadow-gray-200 shadow-md">
           <Image
             src={productData.imgUrl}
@@ -99,11 +101,15 @@ export const ProductListItem = ({ productData }: ProductListItemProps) => {
             className="aspect-square w-full object-contain"
           />
         </div>
-        <div className="p-4 bg-white h-full">
-          <h3 className="font-medium">{productData.name}</h3>
-          <p className="mt-1 text-sm text-slate-700">${productData.price}</p>
+        <div className="p-4 bg-white h-full flex flex-col">
+          <h2 className="font-medium">
+            <Link href={`products/${productData.id}`}>
+              <a>{productData.name}</a>
+            </Link>
+          </h2>
+          <p className="mt-1 mb-4 text-sm text-slate-700">${productData.price}</p>
+          <AddToCartButton />
         </div>
-      </a>
-    </Link>
+      </div>
   )
 }

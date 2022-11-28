@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { CartIcon } from "./Icon";
 
-export const CartAddButton = () => {
-  return <Link href="/cart">
-    <a className={`flex items-center h-full text-gray-500 border-b-4 p-6 hover:opacity-75`}>
+export const AddToCartButton = () => {
+  return (
+    <button className={`flex gap-2 items-center justify-center py-4 px-4 pr-6 bg-red-400 text-white font-bold rounded-lg hover:opacity-75`}>
       <CartIcon></CartIcon>
       <span>Add to cart</span>
-    </a>
-  </Link>
+    </button>
+  )
 }
