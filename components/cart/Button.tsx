@@ -1,13 +1,14 @@
 import { useCartState } from "./Context";
 import { CartIcon } from "./Icon";
 
-export const AddToCartButton = ({title, price}: {title: string, price: number}) => {
+export const AddToCartButton = ({id, title, price}: {id: number, title: string, price: number}) => {
   const cartState = useCartState();
 
   return (
     <button 
       onClick={() => cartState.addToCart(
         { 
+          id: id,
           title: title, 
           price: price,
           amount: 1
@@ -21,12 +22,12 @@ export const AddToCartButton = ({title, price}: {title: string, price: number}) 
   )
 }
 
-export const RemoveFromCartButton = ({title}: {title: string}) => {
+export const RemoveFromCartButton = ({id}: {id: number}) => {
   const cartState = useCartState();
 
   return (
     <button 
-      onClick={() => cartState.removeFromCart(title)} 
+      onClick={() => cartState.removeFromCart(id)} 
       className={`flex gap-2 items-center justify-center py-4 px-4 pr-6 bg-red-400 text-white font-bold rounded-lg hover:opacity-75`}
     >
       <CartIcon></CartIcon>

@@ -66,6 +66,7 @@ export const Product = ({ productData }: ProductProps) => {
         <div className="flex flex-col gap-4 my-6">
           <p className="mt-1 text-slate-700">${productData.price}</p>
           <AddToCartButton 
+            id={productData.id}
             title={productData.name}
             price={productData.price}
           />
@@ -112,6 +113,7 @@ export const ProductListItem = ({ productData }: ProductListItemProps) => {
           </h2>
           <p className="mt-1 mb-4 text-sm text-slate-700">${productData.price}</p>
           <AddToCartButton 
+            id={productData.id}
             title={productData.name}
             price={productData.price}
           />

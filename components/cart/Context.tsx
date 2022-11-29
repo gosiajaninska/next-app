@@ -4,6 +4,7 @@ import { createContext } from "react";
 
 
 interface CartItem {
+  readonly id: number;
   readonly price: number;
   readonly title: string;
   readonly amount: number;
@@ -12,7 +13,7 @@ interface CartItem {
 interface CartState {
   readonly items: readonly CartItem[];
   readonly addToCart: (item: CartItem) => void;
-  readonly removeFromCart: (itemTitle: CartItem['title']) => void;
+  readonly removeFromCart: (itemId: CartItem['id']) => void;
 }
 
 const CartStateContext = createContext<CartState | null>(null);
@@ -25,14 +26,14 @@ export const CartStateContextProvider = ({ children }: { children: ReactNode }) 
 
   const addToCart = (item: CartItem) => {
     setCartItems((prevState) => {
-      const itemFoundInCart = prevState.find(itemInCart => itemInCart.title === item.title);
+      const itemFoundInCart = prevState.find(itemInCart => itemInCart.id === item.id);
   
       if (!itemFoundInCart) {
         return [...prevState, item]
       }
   
       return prevState.map(prevItem => {
-        if (prevItem.title === item.title) {
+        if (prevItem.id === item.id) {
           return {
             ...prevItem,
             amount: prevItem.amount + 1
@@ -44,9 +45,9 @@ export const CartStateContextProvider = ({ children }: { children: ReactNode }) 
     });
   }
 
-  const removeFromCart = (itemTitle: string) => {
+  const removeFromCart = (itemId: CartItem['id']) => {
     setCartItems((prevState) => {
-      return prevState.filter(prevItem => prevItem.title !== itemTitle);
+      return prevState.filter(prevItem => prevItem.id !== itemId);
     })
   }
 

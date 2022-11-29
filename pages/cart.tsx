@@ -13,10 +13,10 @@ const CartPage = () => {
           { 
             cartState.items.map((item, index) => {
               return (
-                <li key={`${item.title}_${index}`} className="flex justify-between py-4 px-8 text-slate-700">
+                <li key={item.id} className="flex justify-between py-4 px-8 text-slate-700">
                   <span>{item.amount} &times; {item.title}</span> 
                   <span>{item.price}</span>
-                  <RemoveFromCartButton title={item.title} />
+                  <RemoveFromCartButton id={item.id} />
                 </li>
               )
             })
