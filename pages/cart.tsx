@@ -25,7 +25,7 @@ const CartPage = () => {
         <div className="px-8">
           <p>
             Items in cart: 
-            <b> { cartState.items.map(item => item.amount).reduce((total, num) => total + num) }</b>
+            <b> { cartState.items.map(item => item.amount).reduce((total, num) => total + num, 0) }</b>
           </p>
         </div>
       </div>
