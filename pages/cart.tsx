@@ -1,5 +1,6 @@
 import { Main } from "../components/Main";
 import { useCartState } from "../components/cart/Context";
+import { RemoveFromCartButton } from "../components/cart/Button";
 
 const CartPage = () => {
   const cartState = useCartState();
@@ -15,6 +16,7 @@ const CartPage = () => {
                 <li key={`${item.title}_${index}`} className="flex justify-between py-4 px-8 text-slate-700">
                   <span>{item.amount} &times; {item.title}</span> 
                   <span>{item.price}</span>
+                  <RemoveFromCartButton title={item.title} />
                 </li>
               )
             })

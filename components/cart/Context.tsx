@@ -12,6 +12,7 @@ interface CartItem {
 interface CartState {
   readonly items: readonly CartItem[];
   readonly addToCart: (item: CartItem) => void;
+  readonly removeFromCart: (itemTitle: CartItem['title']) => void;
 }
 
 const CartStateContext = createContext<CartState | null>(null);
@@ -43,11 +44,18 @@ export const CartStateContextProvider = ({ children }: { children: ReactNode }) 
     });
   }
 
+  const removeFromCart = (itemTitle: string) => {
+    setCartItems((prevState) => {
+      return prevState.filter(prevItem => prevItem.title !== itemTitle);
+    })
+  }
+
   return (
     <CartStateContext.Provider 
       value={{
         items: cartItems,
         addToCart: addToCart,
+        removeFromCart: removeFromCart,
       }}
     >
       { children }
