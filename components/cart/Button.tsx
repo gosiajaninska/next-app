@@ -35,3 +35,36 @@ export const RemoveFromCartButton = ({id}: {id: number}) => {
     </button>
   )
 }
+
+export const DecreaseCartItemButton = ({id}: {id: number}) => {
+  const cartState = useCartState();
+
+  return (
+    <button 
+      onClick={() => cartState.removeFromCart(id)} 
+      className={`font-bold hover:opacity-75`}
+    >
+      <span>-</span>
+    </button>
+  )
+}
+
+export const IncreaseCartItemButton = ({id, title, price}: {id: number, title: string, price: number}) => {
+  const cartState = useCartState();
+
+  return (
+    <button 
+      onClick={() => cartState.addToCart(
+        { 
+          id: id,
+          title: title, 
+          price: price,
+          amount: 1
+        }
+      )} 
+      className={`font-bold hover:opacity-75`}
+    >
+      <span>+</span>
+    </button>
+  )
+}
