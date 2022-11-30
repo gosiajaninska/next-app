@@ -47,7 +47,22 @@ export const CartStateContextProvider = ({ children }: { children: ReactNode }) 
 
   const removeFromCart = (itemId: CartItem['id']) => {
     setCartItems((prevState) => {
-      return prevState.filter(prevItem => prevItem.id !== itemId);
+      const itemFoundInCart = prevState.find(itemInCart => itemInCart.id === itemId);
+
+      if (itemFoundInCart && itemFoundInCart.amount > 1) {
+        const updatedItem = { 
+          ...itemFoundInCart, 
+          amount: itemFoundInCart.amount - 1,
+        };
+
+        return prevState.map(item => item.id === itemId ? updatedItem : item);
+      }
+
+      if (itemFoundInCart && itemFoundInCart.amount <= 1) {
+        return prevState.filter(prevItem => prevItem.id !== itemId);
+      }
+
+      return [...prevState];
     })
   }
 
