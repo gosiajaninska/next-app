@@ -1,14 +1,8 @@
 import { useContext, useEffect } from "react";
 import { ReactNode, useState } from "react";
 import { createContext } from "react";
+import { CartItem } from "../../utility";
 
-
-interface CartItem {
-  readonly id: number;
-  readonly price: number;
-  readonly title: string;
-  readonly amount: number;
-}
 
 interface CartState {
   readonly items: readonly CartItem[];

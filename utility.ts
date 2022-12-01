@@ -15,3 +15,10 @@ export interface StoreApiResponse {
     count:          number;
   };
 }
+
+export interface CartItem {
+  readonly id: number;
+  readonly price: number;
+  readonly title: string;
+  readonly amount: number;
+}
