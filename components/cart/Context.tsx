@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ReactNode, useState } from "react";
 import { createContext } from "react";
 
@@ -23,6 +23,27 @@ const CartStateContext = createContext<CartState | null>(null);
 
 export const CartStateContextProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+
+  const getCartItemsFromStorage = () => {
+    const itemsFromStorage = localStorage.getItem("MJ_SHOPPING_CART");
+    if (!itemsFromStorage) {
+      return [];
+    }
+    try {
+      const items = JSON.parse(itemsFromStorage);
+      return items;
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  }
+  
+
+  useEffect(() => {
+    setCartItems(getCartItemsFromStorage());
+  }, [])
+
 
   const addToCart = (itemToAdd: CartItem) => {
     setCartItems((prevState) => {
