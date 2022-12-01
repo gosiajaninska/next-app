@@ -22,8 +22,8 @@ const CartStateContext = createContext<CartState | null>(null);
 
 
 export const CartStateContextProvider = ({ children }: { children: ReactNode }) => {
-  const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
+  const [cartItems, setCartItems] = useState<CartItem[] | undefined>(undefined);
 
   const getCartItemsFromStorage = () => {
     const itemsFromStorage = localStorage.getItem("MJ_SHOPPING_CART");
@@ -43,17 +43,21 @@ export const CartStateContextProvider = ({ children }: { children: ReactNode }) 
     localStorage.setItem("MJ_SHOPPING_CART", JSON.stringify(cartItems));
   }
 
-
   useEffect(() => {
     setCartItems(getCartItemsFromStorage());
   }, [])
 
   useEffect(() => {
+    if (cartItems === undefined) {
+      return;
+    }
     setCartItemsInStorage(cartItems);
   }, [cartItems])
 
   const addToCart = (itemToAdd: CartItem) => {
     setCartItems((prevState) => {
+      if (!prevState) return [itemToAdd];
+
       const itemFoundInCart = prevState.find(itemInCart => itemInCart.id === itemToAdd.id);
   
       if (itemFoundInCart) {
@@ -71,6 +75,8 @@ export const CartStateContextProvider = ({ children }: { children: ReactNode }) 
 
   const removeFromCart = (itemId: CartItem['id']) => {
     setCartItems((prevState) => {
+      if (!prevState) return [];
+
       const itemFoundInCart = prevState.find(itemInCart => itemInCart.id === itemId);
 
       if (itemFoundInCart && itemFoundInCart.amount > 1) {
@@ -93,7 +99,7 @@ export const CartStateContextProvider = ({ children }: { children: ReactNode }) 
   return (
     <CartStateContext.Provider 
       value={{
-        items: cartItems,
+        items: cartItems || [],
         addToCart: addToCart,
         removeFromCart: removeFromCart,
       }}
