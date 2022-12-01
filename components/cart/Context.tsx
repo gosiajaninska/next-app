@@ -38,12 +38,19 @@ export const CartStateContextProvider = ({ children }: { children: ReactNode }) 
       return [];
     }
   }
-  
+
+  const setCartItemsInStorage = (cartItems: CartItem[]) => {
+    localStorage.setItem("MJ_SHOPPING_CART", JSON.stringify(cartItems));
+  }
+
 
   useEffect(() => {
     setCartItems(getCartItemsFromStorage());
   }, [])
 
+  useEffect(() => {
+    setCartItemsInStorage(cartItems);
+  }, [cartItems])
 
   const addToCart = (itemToAdd: CartItem) => {
     setCartItems((prevState) => {
