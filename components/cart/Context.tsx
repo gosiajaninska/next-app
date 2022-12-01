@@ -14,6 +14,8 @@ interface CartState {
   readonly items: readonly CartItem[];
   readonly addToCart: (item: CartItem) => void;
   readonly removeFromCart: (itemId: CartItem['id']) => void;
+  readonly countTotal: () => number;
+  readonly countItems: () => number;
 }
 
 const CartStateContext = createContext<CartState | null>(null);
@@ -96,12 +98,25 @@ export const CartStateContextProvider = ({ children }: { children: ReactNode }) 
     })
   }
 
+
+  const countTotal = () => {
+    if (!cartItems) return 0;
+    return cartItems.map(item => item.price * item.amount).reduce((total, num) => total + num, 0)
+  }
+
+  const countItems = () => {
+    if (!cartItems) return 0;
+    return cartItems.map(item => item.amount).reduce((total, num) => total + num, 0);
+  }  
+
   return (
     <CartStateContext.Provider 
       value={{
         items: cartItems || [],
         addToCart: addToCart,
         removeFromCart: removeFromCart,
+        countTotal: countTotal,
+        countItems: countItems,
       }}
     >
       { children }
