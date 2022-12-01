@@ -1,6 +1,6 @@
 import { Main } from "../components/Main";
 import { useCartState } from "../components/cart/Context";
-import { DecreaseCartItemButton, IncreaseCartItemButton } from "../components/cart/Button";
+import { ClearCartButton, DecreaseCartItemButton, IncreaseCartItemButton, RemoveItemFromCartButton } from "../components/cart/Button";
 import React from "react";
 
 const CartPage = () => {
@@ -18,12 +18,16 @@ const CartPage = () => {
                   <div className="col-span-1"><IncreaseCartItemButton id={item.id} title={item.title} price={item.price} /></div>
                   <div className="col-span-1">{item.amount}</div>
                   <div className="col-span-1"><DecreaseCartItemButton id={item.id} /></div>                  
-                  <div className="col-span-6">{item.title}</div> 
-                  <div className="col-span-3 text-right">{item.price * item.amount}</div>
+                  <div className="col-span-6 pl-4">{item.title}</div> 
+                  <div className="col-span-2 pl-4 text-right">{item.price * item.amount}</div>
+                  <div className="col-span-1 pl-4"><RemoveItemFromCartButton id={item.id} /></div>
                 </React.Fragment>
               )
             })
           }
+          <div className="col-span-12 pt-8">
+            { cartState.items.length ? <ClearCartButton /> : "" }
+          </div>
         </div>
         <div>
           <p>

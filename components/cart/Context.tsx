@@ -14,6 +14,8 @@ interface CartState {
   readonly items: readonly CartItem[];
   readonly addToCart: (item: CartItem) => void;
   readonly removeFromCart: (itemId: CartItem['id']) => void;
+  readonly clearItem: (itemId: CartItem['id']) => void;
+  readonly clearCart: () => void;
   readonly countTotal: () => number;
   readonly countItems: () => number;
 }
@@ -98,6 +100,16 @@ export const CartStateContextProvider = ({ children }: { children: ReactNode }) 
     })
   }
 
+  const clearItem = (itemId: CartItem['id']) => {
+    setCartItems((prevState) => {
+      if (!prevState) return [];
+      return prevState.filter(prevItem => prevItem.id !== itemId);
+    })
+  }
+
+  const clearCart = () => {
+    setCartItems([]);
+  }
 
   const countTotal = () => {
     if (!cartItems) return 0;
@@ -115,6 +127,8 @@ export const CartStateContextProvider = ({ children }: { children: ReactNode }) 
         items: cartItems || [],
         addToCart: addToCart,
         removeFromCart: removeFromCart,
+        clearItem: clearItem,
+        clearCart: clearCart,
         countTotal: countTotal,
         countItems: countItems,
       }}
