@@ -1,19 +1,10 @@
 import { Main } from "../components/Main";
 import { ProductsList } from "../components/ProductsList";
-import { useQuery } from '@tanstack/react-query';
-import { Pagination } from "../components/Pagination";
+import { useQuery, gql } from '@apollo/client';
 import { useState } from "react";
-import { StoreApiResponse } from "../utility";
+import { ProductsListResponse } from "../utility";
+import { Pagination } from "../components/Pagination";
 
-const getProducts = async ({ queryKey }: any) => {
-  const { productsPerPage, offset } = queryKey[1];
-
-  const response = await fetch(
-    `https://naszsklep-api.vercel.app/api/products?take=${productsPerPage}&offset=${offset}`
-  );
-  const products: StoreApiResponse[] = await response.json();
-  return products;
-}
 
 const SalePage = () => {
 
@@ -21,22 +12,27 @@ const SalePage = () => {
   const [ pageNumber, setPageNumber ] = useState<number>(1);
   const offset = productsPerPage * (pageNumber - 1);
 
-  const { data, isLoading, isError } = useQuery(
-    [
-      "products", 
-      { 
-        productsPerPage: productsPerPage, 
-        offset: offset,
+  const { data, loading, error } = useQuery<ProductsListResponse>(gql`
+    query GetProductsList {
+      products {
+        id
+        name
+        price
+        slug
+        images {
+          width
+          height
+          url
+        }
       }
-    ], 
-    getProducts
-  );
+    }
+  `);
 
-  if (isLoading) { 
+  if (loading) {
     return <Main><div>Loading...</div></Main>;
   }
 
-  if (!data || isError) {
+  if (!data || error) {
     return <Main><div>ups...</div></Main>;
   }
 
@@ -47,7 +43,7 @@ const SalePage = () => {
   return (
     <Main cssClass="flex flex-col justify-center">
       <ProductsList 
-        products={data} 
+        products={data.products} 
       />
       <Pagination 
         activePageNumber={pageNumber}
