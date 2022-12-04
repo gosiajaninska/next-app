@@ -1,8 +1,9 @@
 import { Main } from "../components/Main";
 import { ProductsListWithPagination } from "../components/ProductsList";
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useState } from "react";
 import { ProductsListResponse } from "../utility";
+import { getProductsList } from "../graphql/queries";
 
 
 const SalePage = () => {
@@ -11,21 +12,7 @@ const SalePage = () => {
   const [ pageNumber, setPageNumber ] = useState<number>(1);
   const offset = productsPerPage * (pageNumber - 1);
 
-  const { data, loading, error } = useQuery<ProductsListResponse>(gql`
-    query GetProductsList {
-      products {
-        id
-        name
-        price
-        slug
-        images {
-          width
-          height
-          url
-        }
-      }
-    }
-  `);
+  const { data, loading, error } = useQuery<ProductsListResponse>(getProductsList);
 
   if (loading) {
     return <Main><div>Loading...</div></Main>;
