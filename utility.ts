@@ -17,8 +17,31 @@ export interface StoreApiResponse {
 }
 
 export interface CartItem {
-  readonly id: number;
+  readonly id: string;
   readonly price: number;
   readonly title: string;
   readonly amount: number;
+}
+
+export type CartItemButtonProps = Pick<
+  CartItem, 
+  "id" | "title" | "price"
+>;
+
+export interface ProductsListResponse {
+  products: Product[];
+}
+
+export interface Product {
+  id:    string;
+  name:  string;
+  price: number;
+  slug:  string;
+  images: Image[];
+}
+
+export interface Image {
+  width:  number;
+  height: number;
+  url:    string;
 }
