@@ -1,8 +1,10 @@
+import { gql } from "@apollo/client";
 import { InferGetStaticPropsType } from "next";
 import { Main } from "../../components/Main";
 import { PaginationStatic } from "../../components/Pagination";
 import { ProductsList } from "../../components/ProductsList";
-import { StoreApiResponse } from "../../utility";
+import { apolloClient } from "../../graphql/apolloClient";
+import { ProductsListResponse } from "../../utility";
 
 const ProductsPage = ({ products }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
@@ -21,8 +23,26 @@ const ProductsPage = ({ products }: InferGetStaticPropsType<typeof getStaticProp
 export default ProductsPage;
 
 export const getStaticProps = async () => {
-  const response = await fetch(`https://naszsklep-api.vercel.app/api/products/`);
-  const products: StoreApiResponse[] = await response.json();
+
+  const response = await apolloClient
+    .query<ProductsListResponse>({
+      query: gql`
+        query GetProductsList {
+          products {
+            id
+            name
+            price
+            slug
+            images {
+              width
+              height
+              url
+            }
+          }
+        }
+      `,
+    });
+  const products = response.data.products;
 
   return {
     props: {
