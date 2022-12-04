@@ -1,11 +1,7 @@
-import { StoreApiResponse } from "../utility";
+import { ProductsListResponse } from "../utility";
 import { ProductListItem } from "./Product";
 
-interface ProductsProps {
-  products: StoreApiResponse[],
-}
-
-export const ProductsList = ({ products }: ProductsProps) => {
+export const ProductsList = ({ products }: ProductsListResponse) => {
   return(
     <div className="p-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16 lg:grid-cols-4">
       {
@@ -14,9 +10,9 @@ export const ProductsList = ({ products }: ProductsProps) => {
             key={product.id}
             productData={{
               id:     product.id,
-              name:   product.title,
-              imgUrl: product.image,
-              imgAlt: product.title,
+              name:   product.name,
+              imgUrl: product.images[0].url,
+              imgAlt: product.name,
               price:  product.price,
             }}
           />;
