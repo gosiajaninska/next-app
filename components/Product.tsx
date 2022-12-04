@@ -7,7 +7,7 @@ import { MarkdownResult } from "../utility";
 import { AddToCartButton } from "./cart/Button";
 
 interface Product {
-  id:          number;
+  id:          string;
   name:        string;
   price:       number;
   desc:        string;
