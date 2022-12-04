@@ -1,7 +1,9 @@
+import { CartItemButtonProps } from "../../utility";
 import { useCartState } from "./Context";
 import { CartIcon } from "./Icon";
 
-export const AddToCartButton = ({id, title, price}: {id: number, title: string, price: number}) => {
+
+export const AddToCartButton = ({id, title, price}: CartItemButtonProps) => {
   const cartState = useCartState();
 
   return (
@@ -22,7 +24,7 @@ export const AddToCartButton = ({id, title, price}: {id: number, title: string, 
   )
 }
 
-export const RemoveItemFromCartButton = ({id}: {id: number}) => {
+export const RemoveItemFromCartButton = ({id}: {id: CartItemButtonProps['id']}) => {
   const cartState = useCartState();
 
   return (
@@ -49,7 +51,7 @@ export const ClearCartButton = () => {
   )
 }
 
-export const DecreaseCartItemButton = ({id}: {id: number}) => {
+export const DecreaseCartItemButton = ({id}: {id: CartItemButtonProps['id']}) => {
   const cartState = useCartState();
 
   return (
@@ -62,7 +64,7 @@ export const DecreaseCartItemButton = ({id}: {id: number}) => {
   )
 }
 
-export const IncreaseCartItemButton = ({id, title, price}: {id: number, title: string, price: number}) => {
+export const IncreaseCartItemButton = ({id, title, price}: CartItemButtonProps) => {
   const cartState = useCartState();
 
   return (
