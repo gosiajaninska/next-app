@@ -1,9 +1,8 @@
 import { Main } from "../components/Main";
-import { ProductsList } from "../components/ProductsList";
+import { ProductsListWithPagination } from "../components/ProductsList";
 import { useQuery, gql } from '@apollo/client';
 import { useState } from "react";
 import { ProductsListResponse } from "../utility";
-import { Pagination } from "../components/Pagination";
 
 
 const SalePage = () => {
@@ -42,13 +41,11 @@ const SalePage = () => {
 
   return (
     <Main cssClass="flex flex-col justify-center">
-      <ProductsList 
+      <ProductsListWithPagination 
         products={data.products} 
-      />
-      <Pagination 
-        activePageNumber={pageNumber}
-        pagesQuantity={10}
-        onClick={changePage}
+        pageNumber={pageNumber}
+        productsPerPage={productsPerPage}
+        pageChangeFunction={changePage}
       />
     </Main>
   )
