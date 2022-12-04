@@ -7,7 +7,7 @@ export const getProductsList = gql`
       name
       price
       slug
-      images {
+      images(first: 1) {
         width
         height
         url
