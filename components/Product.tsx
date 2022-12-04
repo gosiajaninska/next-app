@@ -8,6 +8,7 @@ import { AddToCartButton } from "./cart/Button";
 
 interface Product {
   id:          string;
+  slug:        string;
   name:        string;
   price:       number;
   desc:        string;
@@ -85,7 +86,7 @@ export const Product = ({ productData }: ProductProps) => {
 
 type ProductListItem = Pick<
     Product, 
-    "id" | "name" | "imgUrl" | "imgAlt" | "price"
+    "id" | "slug" | "name" | "imgUrl" | "imgAlt" | "price"
 >;
 
 interface ProductListItemProps {
@@ -107,7 +108,7 @@ export const ProductListItem = ({ productData }: ProductListItemProps) => {
         </div>
         <div className="p-4 bg-white h-full flex flex-col">
           <h2 className="font-medium">
-            <Link href={`products/${productData.id}`}>
+            <Link href={`products/${productData.slug}`}>
               <a>{productData.name}</a>
             </Link>
           </h2>
