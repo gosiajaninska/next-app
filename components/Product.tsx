@@ -28,9 +28,6 @@ interface ProductProps {
 
 export const Product = ({ productData }: ProductProps) => {
 
-  console.log('productData')
-  console.log(productData)
-    
   return (
     <div className="grid md:grid-cols-2 md:mx-16 md:my-0 m-8 gap-8">
       <NextSeo
