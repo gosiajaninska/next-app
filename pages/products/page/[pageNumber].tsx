@@ -1,13 +1,13 @@
 import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { Main } from "../../../components/Main";
-import { ProductsListWithStaticPagination } from "../../../components/ProductsList";
+import { ProductsListWithPagination } from "../../../components/ProductsList";
 import { useRouter } from "next/router";
 import { countPages, countProducts, getProducts } from "../../../graphql/queries";
 
 const productsPerPage = 4;
 
 
-const ProductsPage = ({ products, pageNumber, productsQuantity, pagesQuantity }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const ProductsPage = ({ products, pageNumber, productsQuantity, productsPerPage }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   const router = useRouter();
 
@@ -17,10 +17,10 @@ const ProductsPage = ({ products, pageNumber, productsQuantity, pagesQuantity }:
 
   return (
     <Main cssClass="flex flex-col justify-center">
-      <ProductsListWithStaticPagination 
+      <ProductsListWithPagination 
         products={products} 
         productsQuantity={productsQuantity}
-        pagesQuantity={pagesQuantity}
+        productsPerPage={productsPerPage}
         pageNumber={pageNumber}
       />
     </Main>
@@ -65,7 +65,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext<{ pageNum
   const offset = productsPerPage * (pageNumber - 1);
   const products = await getProducts(offset, productsPerPage);
   const productsQuantity = await countProducts();
-  const pagesQuantity = await countPages(productsPerPage);
+  const pagesQuantity = Math.ceil(productsQuantity / productsPerPage);
   
   if (products.length == 0 && productsQuantity > 0) {
     return {
@@ -81,7 +81,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext<{ pageNum
       products,
       pageNumber,
       productsQuantity,
-      pagesQuantity,
+      productsPerPage,
     }
   };
 };

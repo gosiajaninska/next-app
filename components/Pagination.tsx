@@ -3,20 +3,24 @@ import Link from "next/link";
 
 interface PaginationProps {
   activePageNumber: number,
-  pagesQuantity: number,
-  onClick: Function,
+  productsQuantity: number,
+  productsPerPage: number,
+  onClick?: Function,
 }
 
-export const Pagination = ({ activePageNumber, pagesQuantity, onClick }: PaginationProps) => {
+export const Pagination = ({ activePageNumber, productsQuantity, productsPerPage, onClick }: PaginationProps) => {
 
-  const clickHandler = ({ target }: any) => {
+  const clickHandler = onClick ? ({ target }: any) => {
     const pageNumber = target.dataset.page;
     onClick(pageNumber);
-  }
+  } : undefined;
 
   const pageLink = (pageNumber:number, isActive:boolean) => {
     return (
-      <Link href="#" key={pageNumber}>
+      <Link 
+        href={onClick ? "#" : `/products/page/${pageNumber.toString()}`} 
+        key={pageNumber}
+      >
         <a
           onClick={clickHandler}
           data-page={pageNumber}
@@ -28,38 +32,8 @@ export const Pagination = ({ activePageNumber, pagesQuantity, onClick }: Paginat
     )
   }
 
-  return renderNav(activePageNumber, pagesQuantity, pageLink);
-}
+  const pagesQuantity = Math.ceil(productsQuantity / productsPerPage);
 
-
-
-
-interface PaginationStaticProps {
-  activePageNumber: number,
-  pagesQuantity: number,
-}
-
-export const PaginationStatic = ({ activePageNumber, pagesQuantity }: PaginationStaticProps) => {
-
-  const pageLink = (pageNumber:number, isActive:boolean) => {
-    return (
-      <Link href={`/products/page/${pageNumber.toString()}`} key={pageNumber}>
-        <a
-          className={`border-transparent ${isActive ? "border-t-gray-500" : "border-t-transparent"} hover:bg-gray-200 border-t-4 border-b-4 py-4 px-4 inline-flex items-center`}
-        >
-          {pageNumber}
-        </a>    
-      </Link>
-    )
-  }
-
-  return renderNav(activePageNumber, pagesQuantity, pageLink);
-}
-
-
-
-
-const renderNav = (activePageNumber:number, pagesQuantity:number, pageLink:Function) => {
   let links = [];
   for (let i = 1; i <= pagesQuantity; i++) {
     links.push( pageLink(i, activePageNumber == i) );
@@ -71,4 +45,3 @@ const renderNav = (activePageNumber:number, pagesQuantity:number, pageLink:Funct
     </nav>
   );
 }
-
