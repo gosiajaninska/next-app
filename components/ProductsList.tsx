@@ -1,5 +1,5 @@
 import { ProductsListResponse } from "../utility";
-import { Pagination } from "./Pagination";
+import { Pagination, PaginationStatic } from "./Pagination";
 import { ProductListItem } from "./Product";
 
 export const ProductsList = ({ products }: ProductsListResponse) => {
@@ -27,14 +27,14 @@ export const ProductsList = ({ products }: ProductsListResponse) => {
 
 interface ProductsListWithPaginationProps {
   products: ProductsListResponse['products'],
+  productsQuantity: number,
   pageNumber: number,
   productsPerPage: number,
   pageChangeFunction: (pageNumber: number) => void,
 }
 
-export const ProductsListWithPagination = ({ products, pageNumber, productsPerPage, pageChangeFunction }: ProductsListWithPaginationProps ) => {
+export const ProductsListWithPagination = ({ products, productsQuantity, pageNumber, productsPerPage, pageChangeFunction }: ProductsListWithPaginationProps ) => {
 
-  const productsQuantity = products.length;
   const pagesQuantity = Math.ceil(productsQuantity / productsPerPage);
 
   return(
@@ -49,6 +49,32 @@ export const ProductsListWithPagination = ({ products, pageNumber, productsPerPa
         pagesQuantity={pagesQuantity}
         activePageNumber={pageNumber}
         onClick={pageChangeFunction}
+      />
+    </>
+  )
+}
+
+
+interface ProductsListWithStaticPaginationProps {
+  products: ProductsListResponse['products'],
+  productsQuantity: number,
+  pagesQuantity: number,  
+  pageNumber: number,
+}
+
+export const ProductsListWithStaticPagination = ({ products, productsQuantity, pagesQuantity, pageNumber }: ProductsListWithStaticPaginationProps ) => {
+
+  return(
+    <>
+      <p className="mx-16 mt-16 text-xl font-bold text-gray-500">
+        {productsQuantity} products
+      </p>
+
+      <ProductsList products={products} />
+
+      <PaginationStatic 
+        pagesQuantity={pagesQuantity}
+        activePageNumber={pageNumber}
       />
     </>
   )
