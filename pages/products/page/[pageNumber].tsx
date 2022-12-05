@@ -3,7 +3,12 @@ import { Main } from "../../../components/Main";
 import { ProductsList } from "../../../components/ProductsList";
 import { PaginationStatic } from "../../../components/Pagination";
 import { useRouter } from "next/router";
-import { StoreApiResponse } from "../../../utility";
+import { ProductsListResponse } from "../../../utility";
+import { apolloClient } from "../../../graphql/apolloClient";
+import { getProductsList, getProductsSlugs } from "../../../graphql/queries";
+
+const productsPerPage = 4;
+
 
 const ProductsPage = ({ products, pageNumber, productsQuantity, pagesQuantity }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
@@ -32,59 +37,47 @@ const ProductsPage = ({ products, pageNumber, productsQuantity, pagesQuantity }:
 export default ProductsPage;
 
 
-const pagesPaths = (pagesQuantity:number) => {
-  const pagesPaths = [];
+export const getStaticPaths = async () => {
 
-  for (let i = 1; i <= pagesQuantity; i++) {
-    pagesPaths.push({
-      params: { 
-        pageNumber: i.toString(),
-      }
-    })
+  const productsQuantity = await countProducts();
+  const pagesQuantity = Math.ceil(productsQuantity / productsPerPage);
+  const maxStaticPagesQuantity = 5;
+  const staticPagesQuantity = Math.min(pagesQuantity, maxStaticPagesQuantity);
+
+  const paths = [];
+
+  for (let i = 1; i <= staticPagesQuantity; i++) {
+    paths.push({ params: { pageNumber: i.toString() }})
   }
 
-  return pagesPaths;
-}
-
-
-export const getStaticPaths = async () => {
-  const pagesQuantity = 5;
-
   return {
-    paths: pagesPaths(pagesQuantity),
+    paths,
     fallback: true,
   }
 }
 
 
-const countProducts = () => {
-  let count = 0;
-  return new Promise<number>(async resolve => {    
-    const productsPerPage = 1000;
-    let products = [];
-    
-    do {
-      products = await getProducts(productsPerPage, count);
-      count += products.length;
-    } while (products.length == productsPerPage)
-
-    resolve(count);
-  });
+const countProducts = async () => {
+  const { data } = await apolloClient
+    .query<{ products: { slug: string }[]}>({
+      query: getProductsSlugs
+    });
+  return data.products.length;
 }
 
+const getProducts = async (skip: number, first: number) => {
+  const { data } = await apolloClient
+  .query<ProductsListResponse>({
+    query: getProductsList,
+    variables: { skip: skip, first: first}
+  });
 
-const getProducts = async (productsPerPage:number, offset:number) => {
-  const response = await fetch(
-    `https://naszsklep-api.vercel.app/api/products/?take=${productsPerPage}&offset=${offset}`
-    );
-  const products: StoreApiResponse[] = await response.json();
-  return products;
+  return data.products;
 }
 
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext<{ pageNumber: string }>) => {
 
-  const productsPerPage = 25;
   const pageNumber = parseInt(params?.pageNumber || "1");
 
   if (isNaN(pageNumber)) {
@@ -97,7 +90,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext<{ pageNum
   }
 
   const offset = productsPerPage * (pageNumber - 1);
-  const products = await getProducts(productsPerPage, offset);
+  const products = await getProducts(offset, productsPerPage);
   const productsQuantity = await countProducts();
   const pagesQuantity = Math.ceil(productsQuantity / productsPerPage);
   

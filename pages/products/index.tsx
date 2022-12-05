@@ -29,19 +29,23 @@ const countProducts = async () => {
   return data.products.length;
 }
 
+const getProducts = async (skip: number, first: number) => {
+  const { data } = await apolloClient
+  .query<ProductsListResponse>({
+    query: getProductsList,
+    variables: { skip: skip, first: first}
+  });
+
+  return data.products;
+}
+
 
 export const getStaticProps = async () => {
 
-  const productsPerPage = 2;
-  const productsQuantity = await countProducts().then(res => res);
+  const productsPerPage = 4;
+  const productsQuantity = await countProducts();
   const pagesQuantity = Math.ceil(productsQuantity / productsPerPage);
-
-  const { data } = await apolloClient
-    .query<ProductsListResponse>({
-      query: getProductsList,
-      variables: { skip: 0, first: productsPerPage}
-    });
-  const products = data.products;
+  const products = await getProducts(0, productsPerPage);
 
   return {
     props: {
