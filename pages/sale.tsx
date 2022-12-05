@@ -12,7 +12,11 @@ const SalePage = () => {
   const [ pageNumber, setPageNumber ] = useState<number>(1);
   const offset = productsPerPage * (pageNumber - 1);
 
-  const { data, loading, error } = useQuery<ProductsListResponse>(getProductsList);
+  const { data, loading, error } = useQuery<ProductsListResponse>(
+    getProductsList, { 
+      variables: { skip: offset, first: productsPerPage }
+    }
+  );
 
   if (loading) {
     return <Main><div>Loading...</div></Main>;

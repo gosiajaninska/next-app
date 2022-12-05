@@ -23,12 +23,14 @@ const ProductsPage = ({ products }: InferGetStaticPropsType<typeof getStaticProp
 export default ProductsPage;
 
 export const getStaticProps = async () => {
+  const productsPerPage = 25;
 
-  const response = await apolloClient
+  const { data } = await apolloClient
     .query<ProductsListResponse>({
       query: getProductsList,
+      variables: { skip: 0, first: productsPerPage}
     });
-  const products = response.data.products;
+  const products = data.products;
 
   return {
     props: {
