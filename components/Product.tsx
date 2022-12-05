@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Rating } from "./Rating";
 import { MyMarkdown } from './MyMarkdown';
 import { NextSeo } from 'next-seo';
-import { MarkdownResult } from "../utility";
+import { MarkdownResult, ProductData } from "../utility";
 import { AddToCartButton } from "./cart/Button";
 
 interface Product {
@@ -23,24 +23,28 @@ interface Product {
 }
 
 interface ProductProps {
-  productData: Product;
+  productData: ProductData;
 }
 
 export const Product = ({ productData }: ProductProps) => {
+
+  console.log('productData')
+  console.log(productData)
+    
   return (
     <div className="grid md:grid-cols-2 md:mx-16 md:my-0 m-8 gap-8">
       <NextSeo
         title={productData.name}
-        description={productData.desc}
+        description={productData.description}
         canonical={`https://next-app-mu-lake.vercel.app/products/${productData.id}`}
         openGraph={{
           url: `https://next-app-mu-lake.vercel.app/products/${productData.id}`,
           title: productData.name,
-          description: productData.desc,
+          description: productData.description,
           images: [
             {
-              url: productData.imgUrl,
-              alt: productData.imgAlt,
+              url: productData.images ? productData.images[0].url : "",
+              alt: productData.name,
               type: 'image/jpeg',
             },
           ],
@@ -49,8 +53,8 @@ export const Product = ({ productData }: ProductProps) => {
       />
       <div className="bg-white p-16 md:my-16 shadow-lg">
         <Image
-          src={productData.imgUrl}
-          alt={productData.imgAlt}
+          src={productData.images ? productData.images[0].url : ""}
+          alt={productData.name}
           layout="responsive"
           width={1}
           height={1}
@@ -59,11 +63,8 @@ export const Product = ({ productData }: ProductProps) => {
       </div>
       <div className="p-8 md:my-16 h-full">
         <h1 className="font-bold text-2xl">{productData.name}</h1>
-        <Rating 
-          rate={productData.rating.rate} 
-          count={productData.rating.count} 
-        />
-        <p className="mt-1 text-sm font-bold text-slate-700">{productData.desc}</p>
+
+        <p className="mt-1 text-sm font-bold text-slate-700">{productData.description}</p>
         <div className="flex flex-col gap-4 my-6">
           <p className="mt-1 text-slate-700">${productData.price}</p>
           <AddToCartButton 
@@ -75,7 +76,7 @@ export const Product = ({ productData }: ProductProps) => {
 
         <div className="mt-1 prose text-sm text-slate-700">
           <MyMarkdown>
-            {productData.longDesc}
+            {productData.longDescription}
           </MyMarkdown>
         </div>
       </div>

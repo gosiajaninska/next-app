@@ -15,3 +15,30 @@ export const getProductsList = gql`
     }
   }
   `;
+
+
+export const getProductsSlugs = gql`
+  query GetProductsSlugs {
+    products {
+      slug
+    }
+  }
+  `; 
+
+
+export const getProductBySlug = gql`
+  query GetProductBySlugs($slug: String) {
+    product(where: {slug: $slug}) {
+      id
+      name
+      price
+      slug
+      description
+      images {
+        width
+        height
+        url
+      }
+    }
+  }
+`;

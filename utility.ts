@@ -29,19 +29,35 @@ export type CartItemButtonProps = Pick<
 >;
 
 export interface ProductsListResponse {
-  products: Product[];
+  products: ProductListItem[];
 }
 
-export interface Product {
-  id:    string;
-  name:  string;
-  price: number;
-  slug:  string;
-  images: Image[];
-}
+export type ProductListItem = Pick<
+  ProductData, 
+  "id" | "name" | "price" | "slug" |  "images"
+>
 
 export interface Image {
   width:  number;
   height: number;
   url:    string;
+}
+
+export interface ProductData {
+  id:               ProductDataResponse['id'];
+  name:             ProductDataResponse['name'];
+  price:            ProductDataResponse['price'];
+  slug:             ProductDataResponse['slug'];
+  images:           ProductDataResponse['images'];
+  description:      ProductDataResponse['description'];
+  longDescription:  MarkdownResult;
+}
+
+export interface ProductDataResponse {
+  id:               string;
+  name:             string;
+  price:            number;
+  slug:             string;
+  images:           Image[];
+  description:      string;
 }
