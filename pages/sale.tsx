@@ -3,7 +3,7 @@ import { ProductsListWithPagination } from "../components/ProductsList";
 import { useQuery } from '@apollo/client';
 import { useState } from "react";
 import { ProductsListResponse } from "../utility";
-import { getProductsList, getProductsSlugs } from "../graphql/queries";
+import { getProductsListQuery, getProductsSlugsQuery } from "../graphql/queries";
 
 
 const SalePage = () => {
@@ -13,12 +13,12 @@ const SalePage = () => {
   const offset = productsPerPage * (pageNumber - 1);
 
   const { data, loading, error } = useQuery<ProductsListResponse>(
-    getProductsList, { 
+    getProductsListQuery, { 
       variables: { skip: offset, first: productsPerPage }
     }
   );
 
-  const response = useQuery(getProductsSlugs);
+  const response = useQuery(getProductsSlugsQuery);
   
   const productsQuantity = response.data?.products.length
 

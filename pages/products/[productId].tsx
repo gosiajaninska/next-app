@@ -2,9 +2,8 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { Main } from "../../components/Main";
 import { Product } from "../../components/Product";
 import { serialize } from 'next-mdx-remote/serialize';
-import { ProductDataResponse } from "../../utility";
-import { apolloClient } from "../../graphql/apolloClient";
 import { getProductBySlug, getProductsSlugs } from "../../graphql/queries";
+import { ProductData } from "../../utility";
 
 const ProductPage = ({ product }: InferGetStaticPropsType<typeof getStaticProps>) => {
   if (!product) {
@@ -13,15 +12,7 @@ const ProductPage = ({ product }: InferGetStaticPropsType<typeof getStaticProps>
 
   return (
     <Main cssClass="flex flex-col justify-center">
-      <Product productData={{
-          id:               product.id,
-          name:             product.name,
-          images:           product.images,
-          price:            product.price,
-          description:      product.description,
-          longDescription:  product.longDescription,
-          slug:             product.slug
-       }} />
+      <Product productData={product} />
     </Main>
   );
 }
@@ -30,11 +21,10 @@ export default ProductPage;
 
 
 export const getStaticPaths = async () => {
-  const { data } = await apolloClient.query<{ products: { slug: string }[]}>({query: getProductsSlugs});
-  const products = data.products;
+  const slugs = await getProductsSlugs();
 
   return {
-    paths: products.map(product => ({ params: { productId: product.slug }})),
+    paths: slugs.map(slug => ({ params: { productId: slug }})),
     fallback: false,
   }
 }
@@ -42,33 +32,17 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext<{ productId: string }>) => {
   if (!params?.productId) {
-    return {
-      props: {},
-      notFound: true,
-    }
+    return { props: {}, notFound: true };
   }
 
-  const { data } = await apolloClient.query<{ product: ProductDataResponse }>({
-    query: getProductBySlug, 
-    variables: { slug: params.productId }
-  });
-  const product = data.product;
+  const productResponse = await getProductBySlug(params.productId);
 
-  if (!product) {
-    return {
-      props: {},
-      notFound: true,
-    }
+  if (!productResponse) {
+    return { props: {}, notFound: true };
   }
 
-  const longDescription = await serialize(product.description);
-
-  return {
-    props: {
-      product: {
-        ...product,
-        longDescription: longDescription,
-      },
-    }
-  };
+  const longDescription = await serialize(productResponse.description);
+  const product: ProductData = { ...productResponse, longDescription }
+  
+  return { props: { product } };
 }
