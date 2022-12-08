@@ -4,11 +4,7 @@ documents: "graphql/*.graphql"
 generates:
   generated/:
     preset: "client"
-    plugins: [
-      "typescript",
-      "typescript-operations",
-      "typescript-react-apollo"
-    ]
+    plugins: []
   ./graphql.schema.json:
     plugins:
       - "introspection"
