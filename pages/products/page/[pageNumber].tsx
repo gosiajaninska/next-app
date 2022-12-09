@@ -63,11 +63,11 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext<{ pageNum
   }
 
   const offset = productsPerPage * (pageNumber - 1);
-  const products = await getProducts(offset, productsPerPage);
+  const products = await getProducts({ skip: offset, first: productsPerPage });
   const productsQuantity = await countProducts();
   const pagesQuantity = Math.ceil(productsQuantity / productsPerPage);
   
-  if (products.length == 0 && productsQuantity > 0) {
+  if (products.products.length == 0 && productsQuantity > 0) {
     return {
       redirect: {
         destination: `/products/page/${pagesQuantity}`,

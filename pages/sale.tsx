@@ -2,31 +2,36 @@ import { Main } from "../components/Main";
 import { ProductsListWithPagination } from "../components/ProductsList";
 import { useQuery } from '@apollo/client';
 import { useState } from "react";
-import { ProductsListResponse } from "../utility";
-import { getProductsListQuery, getProductsSlugsQuery } from "../graphql/queries";
+import { 
+  GetProductsListDocument, 
+  GetProductsListQuery, 
+  GetProductsListQueryVariables,
+  GetProductsSlugsDocument,
+  GetProductsSlugsQuery, 
+} from "../generated/graphql";
 
 
 const SalePage = () => {
 
-  const productsPerPage = 2;
+  const productsPerPageQuantity = 2;
   const [ pageNumber, setPageNumber ] = useState<number>(1);
-  const offset = productsPerPage * (pageNumber - 1);
+  const offset = productsPerPageQuantity * (pageNumber - 1);
 
-  const { data, loading, error } = useQuery<ProductsListResponse>(
-    getProductsListQuery, { 
-      variables: { skip: offset, first: productsPerPage }
+  const { data, loading, error } = useQuery<GetProductsListQuery, GetProductsListQueryVariables>(
+    GetProductsListDocument, { 
+      variables: { skip: offset, first: productsPerPageQuantity }
     }
   );
 
-  const response = useQuery(getProductsSlugsQuery);
+  // @todo ref: products counter graphql query 
+  const countAllProducts = useQuery<GetProductsSlugsQuery>(GetProductsSlugsDocument);
+  const productsQuantity = countAllProducts.data?.products.length;
   
-  const productsQuantity = response.data?.products.length
-
   if (loading) {
     return <Main><div>Loading...</div></Main>;
   }
 
-  if (!data || error) {
+  if (!data?.products || error || !productsQuantity) {
     return <Main><div>ups...</div></Main>;
   }
 
@@ -37,10 +42,10 @@ const SalePage = () => {
   return (
     <Main cssClass="flex flex-col justify-center">
       <ProductsListWithPagination 
-        products={data.products} 
+        products={data} 
         productsQuantity={productsQuantity}
         pageNumber={pageNumber}
-        productsPerPage={productsPerPage}
+        productsPerPage={productsPerPageQuantity}
         pageChangeFunction={changePage}
       />
     </Main>

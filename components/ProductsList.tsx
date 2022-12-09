@@ -1,22 +1,19 @@
-import { ProductsListResponse } from "../utility";
+import { GetProductsListQuery } from "../generated/graphql";
 import { Pagination } from "./Pagination";
 import { ProductListItem } from "./Product";
 
-export const ProductsList = ({ products }: ProductsListResponse) => {
+export const ProductsList = ({ products }: GetProductsListQuery ) => {
   return(
     <div className="p-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16 lg:grid-cols-4">
       {
         products.map(product => {
           return <ProductListItem 
             key={product.id}
-            productData={{
-              id:     product.id,
-              slug:   product.slug,
-              name:   product.name,
-              imgUrl: product.images[0].url,
-              imgAlt: product.name,
-              price:  product.price,
-            }}
+            id={product.id}
+            imageUrl={product.images[0].url}
+            name={product.name}
+            price={product.price}
+            slug={product.slug}
           />;
         })
       }
@@ -26,7 +23,7 @@ export const ProductsList = ({ products }: ProductsListResponse) => {
 
 
 interface ProductsListWithPaginationProps {
-  products: ProductsListResponse['products'],
+  products: GetProductsListQuery,
   productsQuantity: number,
   pageNumber: number,
   productsPerPage: number,
@@ -41,7 +38,7 @@ export const ProductsListWithPagination = ({ products, productsQuantity, pageNum
         {productsQuantity} products
       </p>
 
-      <ProductsList products={products} />
+      <ProductsList products={products.products} />
 
       <Pagination
         productsQuantity={productsQuantity}
