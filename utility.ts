@@ -1,20 +1,7 @@
 import { MDXRemoteSerializeResult } from 'next-mdx-remote' ;
+import { Product } from './generated/graphql';
 
 export type MarkdownResult = MDXRemoteSerializeResult<Record<string, unknown>, Record<string, string>>;
-
-export interface StoreApiResponse {
-  id:               number;
-  title:            string;
-  price:            number;
-  description:      string;
-  category:         string;
-  image:            string;
-  longDescription:  string;
-  rating: {
-    rate:           number;
-    count:          number;
-  };
-}
 
 export interface CartItem {
   readonly id: string;
@@ -28,36 +15,23 @@ export type CartItemButtonProps = Pick<
   "id" | "title" | "price"
 >;
 
-export interface ProductsListResponse {
-  products: ProductListItem[];
-}
-
-export type ProductListItem = Pick<
-  ProductData, 
+export type ProductListItemData = Pick<
+  Product, 
   "id" | "name" | "price" | "slug" |  "images"
 >
 
-export interface Image {
-  width:  number;
-  height: number;
-  url:    string;
+export interface ProductDetailsProps {
+  id: Product["id"];
+  imageUrl: string;
+  name: Product["name"];
+  price:  Product["price"];
+  description: string
 }
 
-export interface ProductData {
-  id:               ProductDataResponse['id'];
-  name:             ProductDataResponse['name'];
-  price:            ProductDataResponse['price'];
-  slug:             ProductDataResponse['slug'];
-  images:           ProductDataResponse['images'];
-  description:      ProductDataResponse['description'];
-  longDescription:  MarkdownResult;
-}
-
-export interface ProductDataResponse {
-  id:               string;
-  name:             string;
-  price:            number;
-  slug:             string;
-  images:           Image[];
-  description:      string;
+export interface ProductListItemProps {
+  id: Product["id"];
+  imageUrl: string;
+  name: Product["name"];
+  price:  Product["price"];
+  slug: Product["slug"];
 }
