@@ -1,67 +1,33 @@
-import { gql } from "@apollo/client";
-import { ProductDataResponse, ProductsListResponse } from "../utility";
+import { 
+  GetProductBySlugsDocument, 
+  GetProductBySlugsQuery, 
+  GetProductBySlugsQueryVariables, 
+  GetProductsListDocument, 
+  GetProductsListQuery, 
+  GetProductsListQueryVariables, 
+  GetProductsSlugsDocument, 
+  GetProductsSlugsQuery, 
+  GetProductsSlugsQueryVariables 
+} from "../generated/graphql";
 import { apolloClient } from "./apolloClient";
-
-export const getProductsListQuery = gql`
-  query GetProductsList($skip: Int, $first: Int) {
-    products(skip: $skip, first: $first) {
-      id
-      name
-      price
-      slug
-      images(first: 1) {
-        width
-        height
-        url
-      }
-    }
-  }
-  `;
-
-
-export const getProductsSlugsQuery = gql`
-  query GetProductsSlugs {
-    products {
-      slug
-    }
-  }
-  `; 
-
-
-export const getProductBySlugQuery = gql`
-  query GetProductBySlugs($slug: String) {
-    product(where: {slug: $slug}) {
-      id
-      name
-      price
-      slug
-      description
-      images {
-        width
-        height
-        url
-      }
-    }
-  }
-`;
 
 
 export const countProducts = async () => {
   const { data } = await apolloClient
-    .query<{ products: { slug: string }[] }>({
-      query: getProductsSlugsQuery
+    .query<GetProductsSlugsQuery, GetProductsSlugsQueryVariables>({
+      query: GetProductsSlugsDocument
     });
   return data.products.length;
 }
 
 
-export const getProducts = async (skip: number, first: number) => {
+export const getProducts = async ({ skip, first }: GetProductsListQueryVariables) => {
   const { data } = await apolloClient
-    .query<ProductsListResponse>({
-      query: getProductsListQuery,
+    .query<GetProductsListQuery, GetProductsListQueryVariables>({
+      query: GetProductsListDocument,
       variables: { skip: skip, first: first}
     });
-  return data.products;
+  return data;
 }
 
 
@@ -71,10 +37,10 @@ export const countPages = async (productsPerPage=4) => {
 }
 
 
-export const getProductBySlug = async (slug: string) => {
+export const getProductBySlug = async ({ slug }: GetProductBySlugsQueryVariables) => {
   const { data } = await apolloClient
-    .query<{ product: ProductDataResponse }>({
-      query: getProductBySlugQuery, 
+    .query<GetProductBySlugsQuery, GetProductBySlugsQueryVariables>({
+      query: GetProductBySlugsDocument, 
       variables: { slug: slug }
     });
   return data.product;
@@ -83,8 +49,8 @@ export const getProductBySlug = async (slug: string) => {
 
 export const getProductsSlugs = async () => {
   const { data } = await apolloClient
-    .query<{ products: { slug: string }[] }>({
-      query: getProductsSlugsQuery,
+    .query<GetProductsSlugsQuery, GetProductsSlugsQueryVariables>({
+      query: GetProductsSlugsDocument,
     });
   return data.products.map( item => item.slug );
 }
