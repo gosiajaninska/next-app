@@ -1,8 +1,9 @@
-import { ProductsListProps, ProductsListWithPaginationProps } from "../utility";
+import { GetProductsListQuery } from "../generated/graphql";
+import { ProductsListWithPaginationProps } from "../utility";
 import { Pagination } from "./Pagination";
 import { ProductListItem } from "./Product";
 
-export const ProductsList = ({ products }: ProductsListProps ) => {
+export const ProductsList = ({ products }: GetProductsListQuery ) => {
   return(
     <div className="p-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16 lg:grid-cols-4">
       {

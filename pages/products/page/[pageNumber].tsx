@@ -3,7 +3,6 @@ import { Main } from "../../../components/Main";
 import { ProductsListWithPagination } from "../../../components/ProductsList";
 import { useRouter } from "next/router";
 import { countProducts, getProducts } from "../../../graphql/queries";
-import { ProductListItemProps } from "../../../utility";
 
 // settings
 const productsPerPage = 4;
@@ -81,18 +80,11 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext<{ pageNum
     }
   }
 
-  const productsForCurrentPage: ProductListItemProps[] = productsResponse.products.map(p => ({ 
-    id: p.id,
-    name: p.name, 
-    price: p.price,
-    slug: p.slug,
-    imageUrl: p.images[0].url 
-  }));
 
 
   return {
     props: {
-      productsForCurrentPage,
+      productsForCurrentPage: productsResponse.products,
       allProductsQuantity,
       pagesQuantity,
       currentPageNumber: pageNumber,

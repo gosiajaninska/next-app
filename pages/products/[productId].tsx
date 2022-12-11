@@ -12,12 +12,7 @@ const ProductPage = ({ product }: InferGetStaticPropsType<typeof getStaticProps>
 
   return (
     <Main cssClass="flex flex-col justify-center">
-      <ProductDetails 
-        id={product.id}
-        imageUrl={product.images[0].url}
-        name={product.name}
-        price={product.price}
-        description={product.description} />
+      <ProductDetails product={product} />
     </Main>
   );
 }
@@ -46,8 +41,6 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext<{ product
     return { props: {}, notFound: true };
   }
 
-  //const longDescription = await serialize(productResponse.description);
-  //const product = { ...productResponse }
   
   return { props: { product } };
 }
