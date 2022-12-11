@@ -2,17 +2,17 @@ import Link from "next/link";
 import { PaginationProps } from "../utility";
 
 
-export const Pagination = ({ currentPageNumber, pagesQuantity, onClick }: PaginationProps) => {
+export const Pagination = ({ currentPageNumber, pagesQuantity, pageChangeFunction }: PaginationProps) => {
 
-  const clickHandler = onClick ? ({ target }: any) => {
+  const clickHandler = pageChangeFunction ? ({ target }: any) => {
     const pageNumber = target.dataset.page;
-    onClick(pageNumber);
+    pageChangeFunction(pageNumber);
   } : undefined;
 
   const pageLink = (pageNumber:number, isActive:boolean) => {
     return (
       <Link 
-        href={onClick ? "#" : `/products/page/${pageNumber.toString()}`} 
+        href={pageChangeFunction ? "#" : `/products/page/${pageNumber.toString()}`} 
         key={pageNumber}
       >
         <a

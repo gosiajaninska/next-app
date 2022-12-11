@@ -25,28 +25,33 @@ const SalePage = () => {
 
   // @todo ref: products counter graphql query 
   const countAllProducts = useQuery<GetProductsSlugsQuery>(GetProductsSlugsDocument);
-  const productsQuantity = countAllProducts.data?.products.length;
+  const allProductsQuantity = countAllProducts.data?.products.length;
   
   if (loading) {
     return <Main><div>Loading...</div></Main>;
   }
 
-  if (!data?.products || error || !productsQuantity) {
+  if (!data?.products || error || !allProductsQuantity) {
     return <Main><div>ups...</div></Main>;
   }
+
+  const pagesQuantity = Math.ceil(allProductsQuantity / productsPerPageQuantity);
 
   const changePage = (pageNumber: number) => {
     setPageNumber(pageNumber);
   }
 
+
   return (
     <Main cssClass="flex flex-col justify-center">
       <ProductsListWithPagination 
-        products={data} 
-        productsQuantity={productsQuantity}
-        pageNumber={pageNumber}
-        productsPerPage={productsPerPageQuantity}
-        pageChangeFunction={changePage}
+        productsForCurrentPage={{ products: data.products }} 
+        allProductsQuantity={allProductsQuantity}
+        pagination={{
+          pagesQuantity: pagesQuantity,
+          currentPageNumber: pageNumber,
+          pageChangeFunction: changePage
+        }}
       />
     </Main>
   )

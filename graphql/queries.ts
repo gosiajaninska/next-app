@@ -11,7 +11,7 @@ import {
 } from "../generated/graphql";
 import { apolloClient } from "./apolloClient";
 
-
+// @todo ref: products counter graphql query 
 export const countProducts = async () => {
   const { data } = await apolloClient
     .query<GetProductsSlugsQuery, GetProductsSlugsQueryVariables>({

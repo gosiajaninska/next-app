@@ -24,5 +24,5 @@ export interface ProductsListWithPaginationProps {
 export interface PaginationProps {
   currentPageNumber: number,
   pagesQuantity: number,
-  onClick?: Function,
+  pageChangeFunction?: (pageNumber: number) => void,
 }
