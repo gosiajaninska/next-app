@@ -4,6 +4,7 @@ import { ClearCartButton, DecreaseCartItemButton, IncreaseCartItemButton, Remove
 import React from "react";
 import Link from "next/link";
 import { CartItem } from "../utility";
+import { CartIcon } from "../components/cart/Icon";
 
 
 const CartItems = ({ items }: { items: readonly CartItem[] }) => {
@@ -42,6 +43,12 @@ const CartSummary = ({ countItems, countTotal }: { countItems: number, countTota
         Total: 
         <b> { countTotal }</b>
       </p>
+      <Link href={"/checkout"}>
+        <a className={`flex gap-2 items-center justify-center py-4 px-4 pr-6 my-8 bg-red-400 text-white font-bold rounded-lg hover:opacity-75`}>
+          <CartIcon></CartIcon>
+          <span>Checkout</span>
+        </a>
+      </Link>
     </div>
   )
 }
