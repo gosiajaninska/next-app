@@ -1,5 +1,5 @@
 import { MDXRemoteSerializeResult } from 'next-mdx-remote' ;
-import { Asset, GetProductsListQuery, Product } from './generated/graphql';
+import { GetProductsListQuery } from './generated/graphql';
 
 export type MarkdownResult = MDXRemoteSerializeResult<Record<string, unknown>, Record<string, string>>;
 
