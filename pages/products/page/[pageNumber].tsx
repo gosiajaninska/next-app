@@ -2,12 +2,15 @@ import { GetStaticPropsContext, InferGetStaticPropsType } from "next";
 import { Main } from "../../../components/Main";
 import { ProductsListWithPagination } from "../../../components/ProductsList";
 import { useRouter } from "next/router";
-import { countPages, countProducts, getProducts } from "../../../graphql/queries";
+import { countProducts, getProducts } from "../../../graphql/queries";
+import { ProductListItemProps } from "../../../utility";
 
+// settings
 const productsPerPage = 4;
+const maxStaticPagesQuantity = 5;
 
 
-const ProductsPage = ({ products, pageNumber, productsQuantity, productsPerPage }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const ProductsPage = ({ productsForCurrentPage, allProductsQuantity, pagesQuantity, currentPageNumber }: InferGetStaticPropsType<typeof getStaticProps>) => {
 
   const router = useRouter();
 
@@ -18,10 +21,12 @@ const ProductsPage = ({ products, pageNumber, productsQuantity, productsPerPage 
   return (
     <Main cssClass="flex flex-col justify-center">
       <ProductsListWithPagination 
-        products={products} 
-        productsQuantity={productsQuantity}
-        productsPerPage={productsPerPage}
-        pageNumber={pageNumber}
+        productsForCurrentPage={{ products: productsForCurrentPage }} 
+        allProductsQuantity={allProductsQuantity}
+        pagination={{
+          pagesQuantity: pagesQuantity,
+          currentPageNumber: currentPageNumber
+        }}
       />
     </Main>
   )
@@ -32,8 +37,8 @@ export default ProductsPage;
 
 export const getStaticPaths = async () => {
 
-  const pagesQuantity = await countPages(productsPerPage);
-  const maxStaticPagesQuantity = 5;
+  const allProductsQuantity = await countProducts();
+  const pagesQuantity = Math.ceil(allProductsQuantity / productsPerPage);
   const staticPagesQuantity = Math.min(pagesQuantity, maxStaticPagesQuantity);
 
   const paths = [];
@@ -63,11 +68,11 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext<{ pageNum
   }
 
   const offset = productsPerPage * (pageNumber - 1);
-  const products = await getProducts({ skip: offset, first: productsPerPage });
-  const productsQuantity = await countProducts();
-  const pagesQuantity = Math.ceil(productsQuantity / productsPerPage);
+  const productsResponse = await getProducts({ skip: offset, first: productsPerPage });
+  const allProductsQuantity = await countProducts();
+  const pagesQuantity = Math.ceil(allProductsQuantity / productsPerPage);
   
-  if (products.products.length == 0 && productsQuantity > 0) {
+  if (productsResponse.products.length == 0 && allProductsQuantity > 0) {
     return {
       redirect: {
         destination: `/products/page/${pagesQuantity}`,
@@ -76,12 +81,21 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext<{ pageNum
     }
   }
 
+  const productsForCurrentPage: ProductListItemProps[] = productsResponse.products.map(p => ({ 
+    id: p.id,
+    name: p.name, 
+    price: p.price,
+    slug: p.slug,
+    imageUrl: p.images[0].url 
+  }));
+
+
   return {
     props: {
-      products,
-      pageNumber,
-      productsQuantity,
-      productsPerPage,
+      productsForCurrentPage,
+      allProductsQuantity,
+      pagesQuantity,
+      currentPageNumber: pageNumber,
     }
   };
 };

@@ -1,14 +1,8 @@
 import Link from "next/link";
+import { PaginationProps } from "../utility";
 
 
-interface PaginationProps {
-  activePageNumber: number,
-  productsQuantity: number,
-  productsPerPage: number,
-  onClick?: Function,
-}
-
-export const Pagination = ({ activePageNumber, productsQuantity, productsPerPage, onClick }: PaginationProps) => {
+export const Pagination = ({ currentPageNumber, pagesQuantity, onClick }: PaginationProps) => {
 
   const clickHandler = onClick ? ({ target }: any) => {
     const pageNumber = target.dataset.page;
@@ -32,11 +26,9 @@ export const Pagination = ({ activePageNumber, productsQuantity, productsPerPage
     )
   }
 
-  const pagesQuantity = Math.ceil(productsQuantity / productsPerPage);
-
   let links = [];
   for (let i = 1; i <= pagesQuantity; i++) {
-    links.push( pageLink(i, activePageNumber == i) );
+    links.push( pageLink(i, currentPageNumber == i) );
   }
   
   return (

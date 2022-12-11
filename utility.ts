@@ -1,5 +1,5 @@
 import { MDXRemoteSerializeResult } from 'next-mdx-remote' ;
-import { Product } from './generated/graphql';
+import { Asset, Product } from './generated/graphql';
 
 export type MarkdownResult = MDXRemoteSerializeResult<Record<string, unknown>, Record<string, string>>;
 
@@ -30,8 +30,24 @@ export interface ProductDetailsProps {
 
 export interface ProductListItemProps {
   id: Product["id"];
-  imageUrl: string;
+  imageUrl: Asset['url'];
   name: Product["name"];
   price:  Product["price"];
   slug: Product["slug"];
+}
+
+export interface ProductsListProps {
+  products: ProductListItemProps[];
+}
+
+export interface ProductsListWithPaginationProps {
+  allProductsQuantity: number,
+  productsForCurrentPage: ProductsListProps,
+  pagination: PaginationProps,
+}
+
+export interface PaginationProps {
+  currentPageNumber: number,
+  pagesQuantity: number,
+  onClick?: Function,
 }

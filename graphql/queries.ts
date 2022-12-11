@@ -31,12 +31,6 @@ export const getProducts = async ({ skip, first }: GetProductsListQueryVariables
 }
 
 
-export const countPages = async (productsPerPage=4) => {
-  const productsQuantity = await countProducts();
-  return Math.ceil(productsQuantity / productsPerPage);
-}
-
-
 export const getProductBySlug = async ({ slug }: GetProductBySlugsQueryVariables) => {
   const { data } = await apolloClient
     .query<GetProductBySlugsQuery, GetProductBySlugsQueryVariables>({
