@@ -23,8 +23,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.40.0",
     "react-markdown": "^8.0.3",
-    "sharp": "^0.31.1",
-    "yup": "^1.0.0-beta.8"
+    "sharp": "^0.31.1"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^2.16.1",
