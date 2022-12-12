@@ -21,31 +21,19 @@ export const CheckoutForm = () => {
               onSubmit={handleSubmit} 
               className="grid grid-cols-6 gap-6"
             >
+              <div className="col-span-6">
                 <label
                   htmlFor="FirstName"
                   className="block text-xs font-medium text-slate-700"
                 >
-                  First Name
+                  Name
                 </label>
 
                 <input
                   type="text"
                   id="FirstName"
-                  className="w-full mt-1 border-slate-200 rounded-xs  sm:text-sm"
-                />
-              </div>
-
-              <div className="col-span-3">
-                <label
-                  htmlFor="LastName"
-                  className="block text-xs font-medium text-slate-700"
-                >
-                  Last Name
-                </label>
-
-                <input
-                  type="text"
-                  id="LastName"
+                  name="name"
+                  autoComplete="name"
                   className="w-full mt-1 border-slate-200 rounded-xs  sm:text-sm"
                 />
               </div>
@@ -58,6 +46,8 @@ export const CheckoutForm = () => {
                 <input
                   type="email"
                   id="Email"
+                  name="email"
+                  autoComplete="email"
                   className="w-full mt-1 border-slate-200 rounded-xs  sm:text-sm"
                 />
               </div>
@@ -70,6 +60,8 @@ export const CheckoutForm = () => {
                 <input
                   type="tel"
                   id="Phone"
+                  name="phone"
+                  autoComplete="tel"
                   className="w-full mt-1 border-slate-200 rounded-xs  sm:text-sm"
                 />
               </div>
@@ -86,6 +78,8 @@ export const CheckoutForm = () => {
                     <input
                       type="text"
                       id="CardNumber"
+                      name="cardNumber"
+                      autoComplete="cc-number"
                       placeholder="Card Number"
                       className="relative w-full mt-1 border-slate-200 rounded-t-xs focus:z-10 sm:text-sm"
                     />
@@ -98,6 +92,8 @@ export const CheckoutForm = () => {
                       <input
                         type="text"
                         id="CardExpiry"
+                        name="cardExpiry"
+                        autoComplete="cc-exp"
                         placeholder="Expiry Date"
                         className="relative w-full border-slate-200 rounded-bl-xs focus:z-10 sm:text-sm"
                       />
@@ -109,6 +105,8 @@ export const CheckoutForm = () => {
                       <input
                         type="text"
                         id="CardCVC"
+                        name="cardCVC"
+                        autoComplete="off"
                         placeholder="CVC"
                         className="relative w-full border-slate-200 rounded-br-xs focus:z-10 sm:text-sm"
                       />
@@ -128,12 +126,14 @@ export const CheckoutForm = () => {
 
                     <select
                       id="Country"
+                      name="country"
+                      autoComplete="country"
                       className="relative w-full border-slate-200 rounded-t-xs focus:z-10 sm:text-sm"
                     >
                       <option></option>
-                      <option>Poland</option>
                       <option>England</option>
                       <option>Wales</option>
+                      <option>Poland</option>
                       <option>Scotland</option>
                       <option>France</option>
                       <option>Belgium</option>
@@ -147,6 +147,8 @@ export const CheckoutForm = () => {
                     <input
                       type="text"
                       id="PostalCode"
+                      name="postalCode"
+                      autoComplete="postal-code"
                       placeholder="ZIP/Post Code"
                       className="relative w-full border-slate-200 rounded-b-xs focus:z-10 sm:text-sm"
                     />
