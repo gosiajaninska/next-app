@@ -1,4 +1,4 @@
-import { FormEventHandler } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 interface CheckoutFormData {
   name: string;
@@ -13,10 +13,8 @@ interface CheckoutFormData {
 
 export const CheckoutForm = () => {
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
-    event.preventDefault();
-    console.log(event);
-  }
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<CheckoutFormData>();
+  const onSubmit: SubmitHandler<CheckoutFormData> = data => console.log(data);
 
   return (
     <section>
@@ -29,7 +27,7 @@ export const CheckoutForm = () => {
         <div className="py-16">
           <div className="max-w-lg px-8 mx-auto">
             <form 
-              onSubmit={handleSubmit} 
+              onSubmit={handleSubmit(onSubmit)} 
               className="grid grid-cols-6 gap-6"
             >
               <div className="col-span-6">
@@ -43,7 +41,7 @@ export const CheckoutForm = () => {
                 <input
                   type="text"
                   id="FirstName"
-                  name="name"
+                  {...register("name")}
                   autoComplete="name"
                   className="w-full mt-1 border-slate-200 rounded-xs  sm:text-sm"
                 />
@@ -57,7 +55,7 @@ export const CheckoutForm = () => {
                 <input
                   type="email"
                   id="Email"
-                  name="email"
+                  {...register("email")}
                   autoComplete="email"
                   className="w-full mt-1 border-slate-200 rounded-xs  sm:text-sm"
                 />
@@ -71,7 +69,7 @@ export const CheckoutForm = () => {
                 <input
                   type="tel"
                   id="Phone"
-                  name="phone"
+                  {...register("phone")}
                   autoComplete="tel"
                   className="w-full mt-1 border-slate-200 rounded-xs  sm:text-sm"
                 />
@@ -89,7 +87,7 @@ export const CheckoutForm = () => {
                     <input
                       type="text"
                       id="CardNumber"
-                      name="cardNumber"
+                      {...register("cardNumber")}
                       autoComplete="cc-number"
                       placeholder="Card Number"
                       className="relative w-full mt-1 border-slate-200 rounded-t-xs focus:z-10 sm:text-sm"
@@ -103,7 +101,7 @@ export const CheckoutForm = () => {
                       <input
                         type="text"
                         id="CardExpiry"
-                        name="cardExpiry"
+                        {...register("cardExpiry")}
                         autoComplete="cc-exp"
                         placeholder="Expiry Date"
                         className="relative w-full border-slate-200 rounded-bl-xs focus:z-10 sm:text-sm"
@@ -116,7 +114,7 @@ export const CheckoutForm = () => {
                       <input
                         type="text"
                         id="CardCVC"
-                        name="cardCVC"
+                        {...register("cardCVC")}
                         autoComplete="off"
                         placeholder="CVC"
                         className="relative w-full border-slate-200 rounded-br-xs focus:z-10 sm:text-sm"
@@ -137,7 +135,7 @@ export const CheckoutForm = () => {
 
                     <select
                       id="Country"
-                      name="country"
+                      {...register("country")}
                       autoComplete="country"
                       className="relative w-full border-slate-200 rounded-t-xs focus:z-10 sm:text-sm"
                     >
@@ -158,7 +156,7 @@ export const CheckoutForm = () => {
                     <input
                       type="text"
                       id="PostalCode"
-                      name="postalCode"
+                      {...register("postalCode")}
                       autoComplete="postal-code"
                       placeholder="ZIP/Post Code"
                       className="relative w-full border-slate-200 rounded-b-xs focus:z-10 sm:text-sm"
