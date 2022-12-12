@@ -1,19 +1,28 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 
-interface CheckoutFormData {
-  name: string;
-  email: string;
-  phone: string;
-  cardNumber: string;
-  cardExpiry: string;
-  cardCVC: string;
-  country: string;
-  postalCode: string;
-}
+
+const checkoutFormSchema = yup.object({
+  name: yup.string().required(),
+  email: yup.string().email().required(),
+  phone: yup.string().required(),
+  cardNumber: yup.string().required(),
+  cardExpiry: yup.string().required(),
+  cardCVC: yup.string().required(),
+  country: yup.string().required(),
+  postalCode: yup.string().required(),
+}).required();
+
+type CheckoutFormData = yup.InferType<typeof checkoutFormSchema>;
+
 
 export const CheckoutForm = () => {
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<CheckoutFormData>();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm<CheckoutFormData>({
+    resolver: yupResolver(checkoutFormSchema)
+  });
+
   const onSubmit: SubmitHandler<CheckoutFormData> = data => console.log(data);
 
   return (
