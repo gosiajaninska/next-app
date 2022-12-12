@@ -1,4 +1,11 @@
+import { FormEventHandler } from "react";
+
 export const CheckoutForm = () => {
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    console.log(event);
+  }
 
   return (
     <section>
@@ -10,8 +17,10 @@ export const CheckoutForm = () => {
 
         <div className="py-16">
           <div className="max-w-lg px-8 mx-auto">
-            <form className="grid grid-cols-6 gap-6">
-              <div className="col-span-3">
+            <form 
+              onSubmit={handleSubmit} 
+              className="grid grid-cols-6 gap-6"
+            >
                 <label
                   htmlFor="FirstName"
                   className="block text-xs font-medium text-slate-700"
