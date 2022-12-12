@@ -1,5 +1,16 @@
 import { FormEventHandler } from "react";
 
+interface CheckoutFormData {
+  name: string;
+  email: string;
+  phone: string;
+  cardNumber: string;
+  cardExpiry: string;
+  cardCVC: string;
+  country: string;
+  postalCode: string;
+}
+
 export const CheckoutForm = () => {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
