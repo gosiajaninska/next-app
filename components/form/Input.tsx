@@ -3,7 +3,7 @@ interface InputProps {
   label?: string,
   placeholder?: string,
   autocomplete: string,
-  type: string,
+  type?: string,
   inputAttributes: any,
   errorMessage?: string,
 }
@@ -21,7 +21,7 @@ export const Input = ({id, label, placeholder, autocomplete, type, inputAttribut
       }
       <input
         id={id}
-        type={type}
+        type={type ? type : "text"}
         autoComplete={autocomplete}
         {...inputAttributes}
         placeholder={placeholder}

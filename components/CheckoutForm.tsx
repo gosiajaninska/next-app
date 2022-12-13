@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Input } from "./form/input";
+import { Input } from "./form/Input";
 
 
 const checkoutFormSchema = yup.object({
@@ -45,7 +45,6 @@ export const CheckoutForm = () => {
                   id="FirstName"
                   label="Name"
                   autocomplete="name"
-                  type="text"
                   inputAttributes={{...register("name")}}
                   errorMessage={errors.name?.message}
                 />
@@ -84,7 +83,6 @@ export const CheckoutForm = () => {
                     id="cardNumber"
                     placeholder="Card Number"
                     autocomplete="cc-number"
-                    type="text"
                     inputAttributes={{...register("cardNumber")}}
                     errorMessage={errors.cardNumber?.message}
                   />
@@ -96,7 +94,6 @@ export const CheckoutForm = () => {
                     id="cardExpiry"
                     placeholder="Expiry Date"
                     autocomplete="cc-exp"
-                    type="text"
                     inputAttributes={{...register("cardExpiry")}}
                     errorMessage={errors.cardExpiry?.message}
                   />
@@ -108,7 +105,6 @@ export const CheckoutForm = () => {
                     id="cardCVC"
                     placeholder="CVC"
                     autocomplete="off"
-                    type="text"
                     inputAttributes={{...register("cardCVC")}}
                     errorMessage={errors.cardCVC?.message}
                   />
@@ -147,7 +143,6 @@ export const CheckoutForm = () => {
                       id="postalCode"
                       placeholder="ZIP/Post Code"
                       autocomplete="postal-code"
-                      type="text"
                       inputAttributes={{...register("postalCode")}}
                       errorMessage={errors.postalCode?.message}
                     />
